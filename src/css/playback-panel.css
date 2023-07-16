@@ -9,59 +9,85 @@
     border-top: 1px solid rgb(255, 255, 255);
     flex: 0 0 auto;
     display: flex;
+    flex-direction: column;
+}
+
+#playback-buttons {
+    background-color: blue;
+    height: 60%;
+    width: 100%;
+    display: flex;
     flex-direction: row;
 }
 
-#playback-button-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: wheat;
-    height: 100%;
-    width: 20%;
+#progress-status {
+    background-color: yellow;
+    height: 40%;
+    width: 100%;
 }
 
-#playing-status {
+#track-data {
+    background-color: brown;
+    width: 20%;
+    height: 100%;
+    text-align: left;
+    align-items: flex-start;
+}
+
+#track-data-data {
+    width: 97%;
+    height: 100%;
+    background-color: aqua;
+    float: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+p { margin: 0; }
+
+#play-pause, #other-controls {
+    background-color: black;
     width: 60%;
     height: 100%;
-    background-color: white;
+    justify-content: center;
     display: flex;
-}
-
-#current-time {
-    background-color:aqua;
-    width: 10%;
+    flex-direction: row;
     align-items: center;
-    text-align: center;
 }
 
-#progress-bar {
-    background-color: green;
-    width: 80%;
+#play-pause button{
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    aspect-ratio: 1/1;
 }
 
-#total-time {
-    background-color:aqua;
-    width: 10%;
-    align-items: center;
-    text-align: center;
+#other-controls {
+    background-color: brown;
+    width: 20%;
+    height: 100%;
 }
 
-#track-controls {
+#other-controls button {
+    height: 70%;
+    aspect-ratio: 1/1;
+}
+
+#volume-slider-wrapper {
+    background-color: cadetblue;
+    width: 50%;
+    height: 50%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: wheat;
+    flex-direction: row;
+}
+
+#volume-icon {
+    background-color:blue;
     height: 100%;
     width: 20%;
 }
 
-#song-navigator {
-    width: 100%;
-    height: 10%;
-    background-color: blue;
+#volume-slider {
+    width: 70%;
+    display: inline;
+    margin: 0 auto;
 }

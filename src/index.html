@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="css/player.css">
 	<link rel="stylesheet" href="css/main-view.css">
 	<link rel="stylesheet" href="css/playback-panel.css">
-	<link rel="stylesheet" href="css/right-sidebar.css">
 	<link rel="stylesheet" href="css/left-sidebar.css">
 </head>
 
@@ -16,50 +15,47 @@
 
 	<div id="music-player">
 
-		<div id="left-sidebar"></div>
-
 		<div id="right-sidebar">
 			<div id="track-artwork">
+				<img src="assets/Cover.jpg">
 				<style>
-					#track-artwork {
-						background-size: cover;
-						background-position: center;
-						background-image: url('assets/Cover.jpg');
+					img {
+						height: 95%;
+						width: 95%;
+						aspect-ratio: 1/1;
+						border-radius: 3%;
 					}
 				</style>
 			</div>
-
-			<div id="track-details"></div>
 		</div>
 
 		<div id="playback-panel">
+			<div id="playback-buttons">
 
-			<div id="playback-button-box">
-				<button>|&lt;</button>
-				<button>&#41;</button>
-				<button>| |</button>
-				<button>&#40;</button>
-				<button>>|</button>
+				<div id="track-data">
+					<div id="track-data-data">
+						<p>Heaven On Earth</p>
+						<p>Kid Cudi</p>
+					</div>
+				</div>
+				<div id="play-pause">
+					<button>|&lt;</button>
+					<button>| |</button>
+					<button>>|</button>
+				</div>
+				<div id="other-controls">
+					<button>Loop</button>
+					<button>Shuf</button>
+					<button>&hearts;</button>
+					<div id="volume-slider-wrapper">
+						<div id="volume-icon"></div>
+						<input type="range" min="0" max="100" value="69" id="volume-slider">
+					</div>
+				</div>
+
 			</div>
 
-			<div id="playing-status">
-				<div id="current-time">
-					<p>0:00</p>
-				</div>
-				<div id="progress-bar">
-					<div id="song-navigator"></div>
-				</div>
-				<div id="total-time">
-					<p>3:20</p>
-				</div>
-			</div>
-
-			<div id="track-controls">
-				<button>&hearts;</button>
-				<button>Loop</button>
-				<button>Shuffle</button>
-			</div>
-
+			<div id="progress-status"></div>
 		</div>
 
 		<div id="main-view"></div>
