@@ -71,3 +71,23 @@ p { margin: 0; }
     height: 70%;
     aspect-ratio: 1/1;
 }
+
+#volume-slider-wrapper {
+    background-color: cadetblue;
+    width: 50%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+}
+
+#volume-icon {
+    background-color:blue;
+    height: 100%;
+    width: 20%;
+}
+
+#volume-slider {
+    width: 70%;
+    display: inline;
+    margin: 0 auto;
+}
