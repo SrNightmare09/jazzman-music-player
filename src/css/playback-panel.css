@@ -16,7 +16,34 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: inherit;
+    background-color: wheat;
     height: 100%;
-    width: 20%;
+    width: 17%;
+}
+
+#playing-status {
+    width: 60%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+}
+
+#current-time {
+    background-color:aqua;
+    width: 10%;
+    align-items: center;
+    text-align: center;
+}
+
+#progress-bar {
+    background-color: green;
+    width: 80%;
+    height: 100%;
+}
+
+#total-time {
+    background-color:aqua;
+    width: 10%;
+    align-items: center;
+    text-align: center;
 }
