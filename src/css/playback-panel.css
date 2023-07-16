@@ -1,0 +1,22 @@
+#playback-panel {
+    width: 100%;
+    height: 10%;
+    background-color: rgb(12, 13, 14);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-top: 1px solid rgb(255, 255, 255);
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+}
+
+#playback-button-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: inherit;
+    height: 100%;
+    width: 20%;
+}
