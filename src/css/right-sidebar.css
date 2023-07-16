@@ -18,11 +18,3 @@
     aspect-ratio: 1/1;
     position: relative;
 }
-
-#track-details {
-    width: 100%;
-    height: 10%;
-    background-color: inherit;
-    position: relative;
-    border-top: 1px solid rgb(255, 255, 255);
-}
