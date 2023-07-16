@@ -11,3 +11,44 @@
     display: flex;
     flex-direction: column;
 }
+
+#playback-buttons {
+    background-color: blue;
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#progress-status {
+    background-color: yellow;
+    height: 50%;
+    width: 100%;
+}
+
+#track-data {
+    background-color: brown;
+    width: 20%;
+    height: 100%;
+}
+
+#play-pause {
+    background-color: black;
+    width: 60%;
+    height: 100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#play-pause button{
+    height: 100%;
+    aspect-ratio: 1/1;
+}
+
+#other-controls {
+    background-color: brown;
+    width: 20%;
+    height: 100%;
+}
