@@ -14,7 +14,7 @@
 
 #playback-buttons {
     background-color: blue;
-    height: 50%;
+    height: 60%;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -22,7 +22,7 @@
 
 #progress-status {
     background-color: yellow;
-    height: 50%;
+    height: 40%;
     width: 100%;
 }
 
@@ -30,9 +30,23 @@
     background-color: brown;
     width: 20%;
     height: 100%;
+    text-align: left;
+    align-items: flex-start;
 }
 
-#play-pause {
+#track-data-data {
+    width: 97%;
+    height: 100%;
+    background-color: aqua;
+    float: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+p { margin: 0; }
+
+#play-pause, #other-controls {
     background-color: black;
     width: 60%;
     height: 100%;
@@ -51,4 +65,9 @@
     background-color: brown;
     width: 20%;
     height: 100%;
+}
+
+#other-controls button {
+    height: 70%;
+    aspect-ratio: 1/1;
 }
