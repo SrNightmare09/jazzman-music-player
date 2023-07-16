@@ -9,5 +9,5 @@
     border-top: 1px solid rgb(255, 255, 255);
     flex: 0 0 auto;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
