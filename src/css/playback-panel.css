@@ -91,3 +91,35 @@ p { margin: 0; }
     display: inline;
     margin: 0 auto;
 }
+
+#progress-status {
+    justify-content: center;
+    display: flex;
+}
+
+#progress-status-container {
+    display: flex;
+    flex-direction: column;
+    background-color:aquamarine;
+    width: 60%;
+    height: 100%;
+}
+
+#progress-bar {
+    width: 100%;
+    height: 15%;
+    background-color: brown;
+    position: relative;
+    top: 20%;
+}
+
+#timestamps {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    background-color: lightseagreen;
+    top: 50%;
+    transform: translateY(-50%);
+    justify-content: space-between;
+}
+
