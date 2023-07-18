@@ -1,6 +1,6 @@
 use std::fs;
 
-#[tauri::command]
+// #[tauri::command]
 pub fn get_folders() -> Vec<String> {
 
     let directory_path: &str = "D:/Music";
