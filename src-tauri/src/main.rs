@@ -1,9 +1,11 @@
 // DO NOT REMOVE
 // #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use std::collections::HashMap;
+
 mod fetch_files;
 
-use std::collections::HashMap;
+use fetch_files::file_scanning;
 
 /*
 fn main() {
@@ -17,17 +19,29 @@ fn main() {
 fn main() {
 
     let music_dir = "D:/Music/";
-    let artists = fetch_files::scan_directory(&music_dir);
+    let artists = fetch_files::get_folders(&music_dir);
 
-    let mut albums: HashMap<&String, Vec<String>> = HashMap::new();
+    let mut _albums: HashMap<&String, HashMap<String, Vec<String>>> = HashMap::new();
 
     for artist in &artists {
 
-        let directory = format!("{music_dir}/{artist}");
-        albums.insert(artist, fetch_files::scan_directory(&directory));
+        // we get all the albums of an
+        let album_directory = format!("{music_dir}/{artist}");
+        let albums = file_scanning::get_folders(&album_directory);
+
+        let mut album_tracks: HashMap<String, Vec<String>> = HashMap::new();
+
+        for album in &albums {
+
+            let this_alb_path = format!("{}/{album}", &album_directory);
+            album_tracks.insert(album.to_string(), file_scanning::get_folders(&this_alb_path));
+
+        }
+
+        _albums.insert(artist, album_tracks);
 
     }
 
-    println!("{:#?}", albums);
+    println!("{:#?}", _albums);
 
 }
