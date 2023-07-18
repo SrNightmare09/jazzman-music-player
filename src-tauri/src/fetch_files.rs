@@ -1,5 +1,3 @@
-use std::fs;
-
 // #[tauri::command]
 /*
 pub fn get_folders() -> Vec<String> {
@@ -29,6 +27,8 @@ enum Artist {
 
 pub mod file_scanning {
 
+    use std::fs;
+
     pub fn get_folders(directory_path: &str) -> Vec<String> {
         let mut folders: Vec<String> = Vec::new();
 
@@ -52,4 +52,35 @@ pub mod file_scanning {
 
         return folders;
     }
+
+    pub fn get_files(directory_path: &str) -> Vec<String> {
+
+        let mut files: Vec<String> = Vec::new();
+        // let valid_extensions: Vec<String> = vec![String::from("mp3"), String::from("wav"), String::from("mpeg")];
+
+        if let Ok(entries) = fs::read_dir(directory_path) {
+            for entry in entries {
+                if let Ok(entry) = entry {
+                    if let Ok(file_name) = entry.file_name().into_string() {
+
+                        // for valid_ext in valid_extensions {
+                        //     if (file_name.ends_with(valid_ext)) {
+                        //         files.push(file_name);
+                        //     }
+                        // }
+
+                        if (file_name.ends_with(".mp3") || file_name.ends_with(".wav")) {
+                            files.push(file_name);
+                        }
+
+                    }
+                }
+            }
+        } else {
+            return vec![String::from("empty")];
+        }
+
+        return files;
+    }
+
 }

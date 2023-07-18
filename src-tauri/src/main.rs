@@ -19,7 +19,7 @@ fn main() {
 fn main() {
 
     let music_dir = "D:/Music/";
-    let artists = fetch_files::get_folders(&music_dir);
+    let artists = file_scanning::get_folders(&music_dir);
 
     let mut _albums: HashMap<&String, HashMap<String, Vec<String>>> = HashMap::new();
 
@@ -34,7 +34,7 @@ fn main() {
         for album in &albums {
 
             let this_alb_path = format!("{}/{album}", &album_directory);
-            album_tracks.insert(album.to_string(), file_scanning::get_folders(&this_alb_path));
+            album_tracks.insert(album.to_string(), file_scanning::get_files(&this_alb_path));
 
         }
 
