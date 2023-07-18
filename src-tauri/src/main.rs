@@ -3,6 +3,8 @@
 
 mod fetch_files;
 
+use std::collections::HashMap;
+
 /*
 fn main() {
     tauri::Builder::default()
@@ -14,8 +16,18 @@ fn main() {
 
 fn main() {
 
-    let res: Vec<String> = fetch_files::get_folders();
+    let music_dir = "D:/Music/";
+    let artists = fetch_files::scan_directory(&music_dir);
 
-    println!("{:#?}", res);
+    let mut albums: HashMap<&String, Vec<String>> = HashMap::new();
+
+    for artist in &artists {
+
+        let directory = format!("{music_dir}/{artist}");
+        albums.insert(artist, fetch_files::scan_directory(&directory));
+
+    }
+
+    println!("{:#?}", albums);
 
 }

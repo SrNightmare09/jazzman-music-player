@@ -1,15 +1,31 @@
 use std::fs;
 
 // #[tauri::command]
+/*
 pub fn get_folders() -> Vec<String> {
 
-    let directory_path: &str = "D:/Music";
+    let directory_path: &str = "D:/Music/Eminem";
 
-    return get_dir_folders(directory_path);
+    return scan_directory(directory_path);
 
 }
+*/
 
-fn get_dir_folders(directory_path: &str) -> Vec<String> {
+enum Song {
+    SongArtist(String),
+    AlbumArtist(String),
+    Album(String),
+    Year(u32),
+    LengthSeconds(u32)
+}
+
+enum Artist {
+    Name(String),
+    NoOfAlbums(u32),
+    AlbumNames(Vec<String>)
+}
+
+pub fn scan_directory(directory_path: &str) -> Vec<String> {
 
     let mut folders: Vec<String> = Vec::new();
 
@@ -32,6 +48,5 @@ fn get_dir_folders(directory_path: &str) -> Vec<String> {
     }
 
     return folders;
-
 
 }
