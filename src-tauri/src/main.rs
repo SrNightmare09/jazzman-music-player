@@ -2,6 +2,9 @@
 // #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use std::collections::HashMap;
+use surrealdb::sql::{thing, Datetime, Object, Thing, Value};
+use surrealdb::kvs::Datastore;
+use surrealdb::dbs::{Response, Session};
 
 mod fetch_files;
 
@@ -16,6 +19,7 @@ fn main() {
 }
 */
 
+/*
 fn main() {
 
     let music_dir = "D:/Music/";
@@ -45,3 +49,5 @@ fn main() {
     println!("{:#?}", _albums);
 
 }
+*/
+

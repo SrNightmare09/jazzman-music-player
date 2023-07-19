@@ -69,7 +69,7 @@ pub mod file_scanning {
                         //     }
                         // }
 
-                        if (file_name.ends_with(".mp3") || file_name.ends_with(".wav")) {
+                        if file_name.ends_with(".mp3") || file_name.ends_with(".wav") {
                             files.push(file_name);
                         }
 
