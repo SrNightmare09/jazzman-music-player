@@ -1,10 +1,9 @@
 // DO NOT REMOVE
 // #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use std::collections::HashMap;
-use surrealdb::sql::{thing, Datetime, Object, Thing, Value};
-use surrealdb::kvs::Datastore;
-use surrealdb::dbs::{Response, Session};
+#![allow(unused)]
+
+use rusqlite::{Connection, Result};
 
 mod fetch_files;
 
@@ -51,3 +50,24 @@ fn main() {
 }
 */
 
+fn main() -> Result<()>{
+
+    let path: &str = "src/database/data/library.db";
+    let conn = Connection::open(path)?;
+
+    conn.execute("
+    create table if not exists cat_complex (
+        id integer primary key,
+        name text not null unique
+    )", [])?;
+
+    conn.execute("
+    create table if not exists cats (
+        id integer primary key,
+        name text not null unique,
+        color_id integer not null references cat_complex(id)
+    )", [])?;
+
+    return Ok(());
+
+}
