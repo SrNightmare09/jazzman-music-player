@@ -24,26 +24,26 @@ pub mod file_scanning {
             return vec![String::from("Empty")];
         }
 
-        return folders;
+        folders
     }
 
     fn get_files(directory_path: &str) -> Vec<String> {
         let mut files: Vec<String> = Vec::new();
-        // let valid_extensions: Vec<String> = vec![String::from("mp3"), String::from("wav"), String::from("mpeg")];
+        let valid_extensions: Vec<String> = vec![
+            String::from(".mp3"),
+            String::from(".wav"),
+            String::from(".m4a")
+        ];
 
         if let Ok(entries) = fs::read_dir(directory_path) {
             for entry in entries {
                 if let Ok(entry) = entry {
                     if let Ok(file_name) = entry.file_name().into_string() {
-                        // for valid_ext in valid_extensions {
-                        //     if (file_name.ends_with(valid_ext)) {
-                        //         files.push(file_name);
-                        //     }
-                        // }
 
-                        if file_name.ends_with(".mp3") || file_name.ends_with(".wav") {
+                        if valid_extensions.iter().any(|ext| file_name.ends_with(ext)) {
                             files.push(file_name);
                         }
+
                     }
                 }
             }
@@ -51,7 +51,7 @@ pub mod file_scanning {
             return vec![String::from("empty")];
         }
 
-        return files;
+        files
     }
 
     pub fn get_data(path: &str) -> HashMap<String, HashMap<String, Vec<String>>> {
@@ -73,6 +73,8 @@ pub mod file_scanning {
 
             _albums.insert(artist.to_string(), album_tracks);
         }
+
+        println!("{:#?}", _albums);
 
         _albums
     }
