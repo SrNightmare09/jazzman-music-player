@@ -9,22 +9,6 @@ pub fn get_folders() -> Vec<String> {
 }
 */
 
-/*
-enum Song {
-    SongArtist(String),
-    AlbumArtist(String),
-    Album(String),
-    Year(u32),
-    LengthSeconds(u32)
-}
-
-enum Artist {
-    Name(String),
-    NoOfAlbums(u32),
-    AlbumNames(Vec<String>)
-}
-*/
-
 pub mod file_scanning {
 
     use std::fs;
