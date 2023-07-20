@@ -9,6 +9,7 @@ pub fn get_folders() -> Vec<String> {
 }
 */
 
+
 pub mod file_scanning {
 
     use std::fs;
@@ -34,7 +35,7 @@ pub mod file_scanning {
             return vec![String::from("Empty")];
         }
 
-        return folders;
+        folders
     }
 
     pub fn get_files(directory_path: &str) -> Vec<String> {
@@ -61,10 +62,10 @@ pub mod file_scanning {
                 }
             }
         } else {
-            return vec![String::from("empty")];
+            return vec![String::from("Empty")];
         }
 
-        return files;
+        files
     }
 
 }
