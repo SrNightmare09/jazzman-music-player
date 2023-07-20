@@ -9,7 +9,6 @@ mod database;
 use rusqlite::Result;
 
 use fetch_files::file_scanning;
-use tauri::api::file;
 
 
 /*
