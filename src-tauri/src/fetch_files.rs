@@ -73,9 +73,7 @@ pub mod file_scanning {
 
             _albums.insert(artist.to_string(), album_tracks);
         }
-
-        println!("{:#?}", _albums);
-
+        
         _albums
     }
 }
