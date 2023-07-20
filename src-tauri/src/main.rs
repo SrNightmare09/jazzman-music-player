@@ -26,6 +26,7 @@ fn main() {
 
     let music_dir: &str = "D:/Music/";
 
+    file_scanning::get_data(music_dir);
 }
 
 
