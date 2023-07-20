@@ -1,6 +1,6 @@
 pub mod file_scanning {
 
-    use std::{fs, collections::HashMap};
+    use std::{collections::HashMap, fs};
 
     fn get_folders(directory_path: &str) -> Vec<String> {
         let mut folders: Vec<String> = Vec::new();
@@ -53,26 +53,26 @@ pub mod file_scanning {
         files
     }
 
-    pub fn get_data(path: &str) {
+    pub fn get_data(path: &str) -> HashMap<String, HashMap<String, Vec<String>>> {
         let artists = get_folders(&path);
 
-        let mut _albums: HashMap<&String, HashMap<String, Vec<String>>> = HashMap::new();
+        let mut _albums: HashMap<String, HashMap<String, Vec<String>>> = HashMap::new();
 
         for artist in &artists {
             // we get all the albums of an artist
-            let album_directory = format!("{path}/{artist}");
+            let album_directory = format!("{}/{}", &path, artist);
             let albums = get_folders(&album_directory);
 
             let mut album_tracks: HashMap<String, Vec<String>> = HashMap::new();
 
             for album in &albums {
-                let this_alb_path = format!("{}/{album}", &album_directory);
+                let this_alb_path = format!("{}/{}", &album_directory, album);
                 album_tracks.insert(album.to_string(), get_files(&this_alb_path));
             }
 
-            _albums.insert(artist, album_tracks);
+            _albums.insert(artist.to_string(), album_tracks);
         }
 
-        println!("{:#?}", _albums);
+        _albums
     }
 }
