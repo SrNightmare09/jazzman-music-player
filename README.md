@@ -1,2 +1,2 @@
-# music-player-rave
-an offline music player
+# Jazzman Music Player
+an offline music player (WIP)
