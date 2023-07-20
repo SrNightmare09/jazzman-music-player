@@ -1,35 +1,38 @@
-use rusqlite::{Connection, Result};
+pub mod db {
 
-pub fn initialize() -> Result<()> {
-    let path: &str = "../db/library.db";
-    let conn = open_connection(path)?;
+    use rusqlite::{Connection, Result};
 
-    create_tables(&conn)?;
+    pub fn initialize() -> Result<()> {
+        let path: &str = "../db/library.db";
+        let conn = open_connection(path)?;
 
-    Ok(())
-}
+        create_tables(&conn)?;
 
-pub fn open_connection(path: &str) -> Result<Connection> {
-    Connection::open(path)
-}
+        Ok(())
+    }
 
-pub fn create_tables(conn: &Connection) -> Result<()> {
-    conn.execute(
-        "create table if not exists cat_complex (
-            id integer primary key,
-            name text not null unique
-        )",
-        [],
-    )?;
+    fn open_connection(path: &str) -> Result<Connection> {
+        Connection::open(path)
+    }
 
-    conn.execute(
-        "create table if not exists cats (
-            id integer primary key,
-            name text not null unique,
-            color_id integer not null references cat_complex(id)
-        )",
-        [],
-    )?;
+    fn create_tables(conn: &Connection) -> Result<()> {
+        conn.execute(
+            "create table if not exists cat_complex (
+                id integer primary key,
+                name text not null unique
+            )",
+            [],
+        )?;
 
-    Ok(())
+        conn.execute(
+            "create table if not exists cats (
+                id integer primary key,
+                name text not null unique,
+                color_id integer not null references cat_complex(id)
+            )",
+            [],
+        )?;
+
+        Ok(())
+    }
 }
