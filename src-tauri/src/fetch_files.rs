@@ -1,3 +1,9 @@
+pub struct Song {
+    name: String,
+    album: String,
+    artist: String,
+    length: u16,
+}
 
 pub mod file_scanning {
 
@@ -73,7 +79,7 @@ pub mod file_scanning {
 
             _albums.insert(artist.to_string(), album_tracks);
         }
-        
+
         _albums
     }
 }
