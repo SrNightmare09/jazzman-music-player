@@ -1,13 +1,10 @@
 // DO NOT REMOVE
 // #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-#![allow(unused)]
-
-use rusqlite::{Connection, Result};
-
 mod fetch_files;
+mod database;
 
-use fetch_files::file_scanning;
+use rusqlite::Result;
 
 /*
 fn main() {
@@ -52,22 +49,8 @@ fn main() {
 
 fn main() -> Result<()>{
 
-    let path: &str = "src/database/data/library.db";
-    let conn = Connection::open(path)?;
+    database::initialize()?;
 
-    conn.execute("
-    create table if not exists cat_complex (
-        id integer primary key,
-        name text not null unique
-    )", [])?;
-
-    conn.execute("
-    create table if not exists cats (
-        id integer primary key,
-        name text not null unique,
-        color_id integer not null references cat_complex(id)
-    )", [])?;
-
-    return Ok(());
+    Ok(())
 
 }
