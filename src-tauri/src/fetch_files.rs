@@ -1,54 +1,7 @@
 
-#[derive(Debug)]
-pub struct Track {
-    name: String,
-}
-
-#[derive(Debug)]
-pub struct Album {
-    name: String,
-    tracks: Vec<Track>,
-}
-
-#[derive(Debug)]
-pub struct Artist {
-    name: String,
-    albums: Vec<Album>,
-}
-
-impl Album {
-    fn new(name: String) -> Self {
-        Self {
-            name,
-            tracks: Vec::new(),
-        }
-    }
-
-    fn add_track(&mut self, track: Track) {
-        self.tracks.push(track);
-    }
-}
-
-impl Artist {
-    fn new(name: String) -> Self {
-        Self {
-            name,
-            albums: Vec::new(),
-        }
-    }
-
-    fn add_album(&mut self, album: Album) {
-        self.albums.push(album);
-    }
-}
-
 pub mod file_scanning {
 
     use std::{collections::HashMap, fs};
-
-    use super::Artist;
-    use super::Track;
-    use super::Album;
 
     fn get_folders(directory_path: &str) -> Vec<String> {
         let mut folders: Vec<String> = Vec::new();
@@ -71,7 +24,7 @@ pub mod file_scanning {
             return vec![String::from("Empty")];
         }
 
-        folders
+        return folders;
     }
 
     fn get_files(directory_path: &str) -> Vec<String> {
@@ -95,44 +48,32 @@ pub mod file_scanning {
                 }
             }
         } else {
-            return vec![String::from("Empty")];
+            return vec![String::from("empty")];
         }
 
-        files
+        return files;
     }
 
-    pub fn get_data(path: &str) -> HashMap<String, Artist> {
+    pub fn get_data(path: &str) -> HashMap<String, HashMap<String, Vec<String>>> {
         let artists = get_folders(&path);
 
-        let mut artists_data: HashMap<String, Artist> = HashMap::new();
+        let mut _albums: HashMap<String, HashMap<String, Vec<String>>> = HashMap::new();
 
         for artist in &artists {
             // we get all the albums of an artist
             let album_directory = format!("{}/{}", &path, artist);
             let albums = get_folders(&album_directory);
 
-            let mut artist_data = Artist::new(artist.to_string());
-            // println!("{:?}", artist_data);
+            let mut album_tracks: HashMap<String, Vec<String>> = HashMap::new();
 
             for album in &albums {
                 let this_alb_path = format!("{}/{}", &album_directory, album);
-                let tracks = get_files(&this_alb_path);
-
-                let mut album_data = Album::new(album.to_string());
-
-                for track in &tracks {
-                    album_data.add_track(Track {
-                        name: track.to_string(),
-                    });
-                }
-
-                artist_data.add_album(album_data);
+                album_tracks.insert(album.to_string(), get_files(&this_alb_path));
             }
 
-            artists_data.insert(artist.to_string(), artist_data);
+            _albums.insert(artist.to_string(), album_tracks);
         }
 
-        println!("{:#?}",& artists_data);
-        artists_data
+        _albums
     }
 }
