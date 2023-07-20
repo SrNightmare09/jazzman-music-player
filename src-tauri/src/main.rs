@@ -25,7 +25,9 @@ fn main() {
 
     let music_dir = "D:/Music/";
 
-    file_scanning::get_data(music_dir);
+    let dir_data: HashMap<String, HashMap<String, Vec<String>>> = file_scanning::get_data(music_dir);
+    
+
 }
 
 
