@@ -12,8 +12,6 @@ pub mod file_scanning {
     use std::io;
     use std::path::{Path, PathBuf};
 
-    use tauri::api::file;
-
     use super::Song;
 
     pub fn get_data(path: &str) -> Result<Vec<Song>, io::Error> {
