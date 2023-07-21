@@ -7,15 +7,22 @@ mod database;
 mod fetch_files;
 
 use database::db;
-use fetch_files::file_scanning;
+use fetch_files::file_scanning::get_data;
 
 fn main() -> Result<(), io::Error> {
 
-    let music_dir: &str = "D:/Music/";
-
-    let data = file_scanning::get_data(music_dir);
+    let path: &str = "D:/Music/";
 
     db::create_table();
+
+    match get_data(path) {
+        Ok(songs) => {
+            for song in &songs {
+                db::insert_item(song);
+            }
+        },
+        Err(err) => println!("{}", err)
+    }
 
     Ok(())
 }
