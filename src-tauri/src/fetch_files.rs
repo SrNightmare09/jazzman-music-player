@@ -63,44 +63,32 @@ pub mod file_scanning {
         files
     }
 
-    pub fn get_data(path: &str) -> HashMap<String, HashMap<String, Vec<String>>> {
-        let artists = get_folders(&path);
+    pub fn get_data(path: &str) -> Vec<Song> {
 
         let mut tracks: Vec<Song> = Vec::new();
-
-        let mut _albums: HashMap<String, HashMap<String, Vec<String>>> = HashMap::new();
+        let artists = get_folders(&path);
 
         for artist in &artists {
             // we get all the albums of an artist
             let album_directory = format!("{}/{}", &path, artist);
             let albums = get_folders(&album_directory);
 
-            let mut album_tracks: HashMap<String, Vec<String>> = HashMap::new();
-
             for album in &albums {
-                let this_alb_path = format!("{}/{}", &album_directory, album);
-                let songs = get_files(&this_alb_path);
+                let album_path = format!("{}/{}", &album_directory, album);
+                let songs = get_files(&album_path);
 
                 for song in &songs {
-
                     let track: Song = Song {
                         name: song.to_string(),
                         album: album.to_string(),
                         artist: artist.to_string(),
                         length: 0
                     };
-
                     tracks.push(track);
-
                 }
-
             }
-
-            _albums.insert(artist.to_string(), album_tracks);
         }
-
         println!("{:#?}", tracks);
-
-        _albums
+        tracks
     }
 }
