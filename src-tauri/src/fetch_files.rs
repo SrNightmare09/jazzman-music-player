@@ -73,7 +73,3 @@ pub mod file_scanning {
         Ok(files)
     }
 }
-
-// if valid_extensions.iter().any(|ext| file_name.ends_with(ext)) {
-//     files.push(file_name);
-// }
