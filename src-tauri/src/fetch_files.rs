@@ -8,87 +8,74 @@ pub struct Song {
 
 pub mod file_scanning {
 
-    use std::{collections::HashMap, fs};
+    use std::fs;
+    use std::io;
+    use std::path::{Path, PathBuf};
 
-    use crate::fetch_files::Song;
+    use tauri::api::file;
 
-    fn get_folders(directory_path: &str) -> Vec<String> {
-        let mut folders: Vec<String> = Vec::new();
+    use super::Song;
 
-        if let Ok(entries) = fs::read_dir(directory_path) {
-            for entry in entries {
-                if let Ok(entry) = entry {
-                    if let Ok(folder_name) = entry.file_name().into_string() {
-                        let metadata = entry.metadata();
-                        if let Ok(metadata) = metadata {
-                            if metadata.is_dir() {
-                                folders.push(folder_name);
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            println!("Failed to read directory: {}", directory_path);
-            return vec![String::from("Empty")];
-        }
-
-        folders
-    }
-
-    fn get_files(directory_path: &str) -> Vec<String> {
-        let mut files: Vec<String> = Vec::new();
-        let valid_extensions: Vec<String> = vec![
-            String::from(".mp3"),
-            String::from(".wav"),
-            String::from(".m4a")
-        ];
-
-        if let Ok(entries) = fs::read_dir(directory_path) {
-            for entry in entries {
-                if let Ok(entry) = entry {
-                    if let Ok(file_name) = entry.file_name().into_string() {
-
-                        if valid_extensions.iter().any(|ext| file_name.ends_with(ext)) {
-                            files.push(file_name);
-                        }
-
-                    }
-                }
-            }
-        } else {
-            return vec![String::from("empty")];
-        }
-
-        files
-    }
-
-    pub fn get_data(path: &str) -> Vec<Song> {
-
+    pub fn get_data(path: &str) -> Result<Vec<Song>, io::Error> {
         let mut tracks: Vec<Song> = Vec::new();
-        let artists = get_folders(&path);
+        let artists = get_folders(Path::new(path))?;
 
-        for artist in &artists {
-            // we get all the albums of an artist
-            let album_directory = format!("{}/{}", &path, artist);
-            let albums = get_folders(&album_directory);
+        for artist in artists {
+            let album_directory = Path::new(path).join(&artist);
+            let albums = get_folders(&album_directory)?;
 
-            for album in &albums {
-                let album_path = format!("{}/{}", &album_directory, album);
-                let songs = get_files(&album_path);
+            for album in albums {
+                let album_path = album_directory.join(&album);
+                let songs = get_files(&album_path)?;
 
-                for song in &songs {
-                    let track: Song = Song {
-                        name: song.to_string(),
+                for song in songs {
+                    let track = Song {
+                        name: song,
                         album: album.to_string(),
                         artist: artist.to_string(),
-                        length: 0
+                        length: 0,
                     };
                     tracks.push(track);
                 }
             }
         }
+
         println!("{:#?}", tracks);
-        tracks
+        Ok(tracks)
+    }
+
+    fn get_folders(path: &Path) -> Result<Vec<String>, io::Error> {
+        let mut folders = Vec::new();
+        for entry in fs::read_dir(path)? {
+            let entry = entry?;
+            if entry.path().is_dir() {
+                folders.push(entry.file_name().to_string_lossy().to_string());
+            }
+        }
+        Ok(folders)
+    }
+
+    fn get_files(path: &Path) -> Result<Vec<String>, io::Error> {
+        let mut files = Vec::new();
+        let valid_extensions: Vec<String> = vec![
+            String::from(".mp3"),
+            String::from(".wav"),
+            String::from(".m4a")
+        ];
+        for entry in fs::read_dir(path)? {
+            let entry = entry?;
+            if entry.path().is_file() {
+                if let Some(file_name) = entry.file_name().to_str() {
+                    if valid_extensions.iter().any(|ext| file_name.ends_with(ext)) {
+                        files.push(file_name.to_string());
+                    }
+                }
+            }
+        }
+        Ok(files)
     }
 }
+
+// if valid_extensions.iter().any(|ext| file_name.ends_with(ext)) {
+//     files.push(file_name);
+// }
