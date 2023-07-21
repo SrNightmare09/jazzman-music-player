@@ -1,86 +1,79 @@
-// #[tauri::command]
-/*
-pub fn get_folders() -> Vec<String> {
-
-    let directory_path: &str = "D:/Music/Eminem";
-
-    return scan_directory(directory_path);
-
+#[derive(Debug)]
+pub struct Song {
+    pub name: String,
+    pub album: String,
+    pub artist: String,
+    pub length: u16,
 }
-*/
-
-/*
-enum Song {
-    SongArtist(String),
-    AlbumArtist(String),
-    Album(String),
-    Year(u32),
-    LengthSeconds(u32)
-}
-
-enum Artist {
-    Name(String),
-    NoOfAlbums(u32),
-    AlbumNames(Vec<String>)
-}
-*/
 
 pub mod file_scanning {
 
     use std::fs;
+    use std::io;
+    use std::path::Path;
 
-    pub fn get_folders(directory_path: &str) -> Vec<String> {
-        let mut folders: Vec<String> = Vec::new();
+    use super::Song;
 
-        if let Ok(entries) = fs::read_dir(directory_path) {
-            for entry in entries {
-                if let Ok(entry) = entry {
-                    if let Ok(folder_name) = entry.file_name().into_string() {
-                        let metadata = entry.metadata();
-                        if let Ok(metadata) = metadata {
-                            if metadata.is_dir() {
-                                folders.push(folder_name);
-                            }
-                        }
+    pub fn get_data(path: &str) -> Result<Vec<Song>, io::Error> {
+        let mut tracks: Vec<Song> = Vec::new();
+        let artists = get_folders(Path::new(path))?;
+
+        for artist in artists {
+            let album_directory = Path::new(path).join(&artist);
+            let albums = get_folders(&album_directory)?;
+
+            for album in albums {
+                let album_path = album_directory.join(&album);
+                let songs = get_files(&album_path)?;
+
+                for song in songs {
+                    let track = Song {
+                        name: song,
+                        album: album.to_string(),
+                        artist: artist.to_string(),
+                        length: 0,
+                    };
+                    tracks.push(track);
+                }
+            }
+        }
+        Ok(tracks)
+    }
+
+    fn get_folders(path: &Path) -> Result<Vec<String>, io::Error> {
+        let mut folders = Vec::new();
+        for entry in fs::read_dir(path)? {
+            let entry = entry?;
+            if entry.path().is_dir() {
+                folders.push(entry.file_name().to_string_lossy().to_string());
+            }
+        }
+        Ok(folders)
+    }
+
+    fn get_files(path: &Path) -> Result<Vec<String>, io::Error> {
+        let mut files = Vec::new();
+        let valid_extensions: Vec<String> = vec![
+            String::from(".mp3"),
+            String::from(".wav"),
+            String::from(".m4a"),
+            String::from(".flac"),
+            String::from(".mp4"),
+            String::from(".wma"),
+            String::from(".aac"),
+            String::from(".aiff"),
+            String::from(".alac")
+        ];
+        for entry in fs::read_dir(path)? {
+            let entry = entry?;
+            if entry.path().is_file() {
+                if let Some(file_name) = entry.file_name().to_str() {
+                    if valid_extensions.iter().any(|ext| file_name.ends_with(ext)) {
+                        files.push(file_name.to_string());
                     }
                 }
             }
-        } else {
-            println!("Failed to read directory: {}", directory_path);
-            return vec![String::from("Empty")];
         }
-
-        return folders;
+        Ok(files)
     }
-
-    pub fn get_files(directory_path: &str) -> Vec<String> {
-
-        let mut files: Vec<String> = Vec::new();
-        // let valid_extensions: Vec<String> = vec![String::from("mp3"), String::from("wav"), String::from("mpeg")];
-
-        if let Ok(entries) = fs::read_dir(directory_path) {
-            for entry in entries {
-                if let Ok(entry) = entry {
-                    if let Ok(file_name) = entry.file_name().into_string() {
-
-                        // for valid_ext in valid_extensions {
-                        //     if (file_name.ends_with(valid_ext)) {
-                        //         files.push(file_name);
-                        //     }
-                        // }
-
-                        if (file_name.ends_with(".mp3") || file_name.ends_with(".wav")) {
-                            files.push(file_name);
-                        }
-
-                    }
-                }
-            }
-        } else {
-            return vec![String::from("empty")];
-        }
-
-        return files;
-    }
-
 }
