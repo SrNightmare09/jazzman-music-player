@@ -56,7 +56,13 @@ pub mod file_scanning {
         let valid_extensions: Vec<String> = vec![
             String::from(".mp3"),
             String::from(".wav"),
-            String::from(".m4a")
+            String::from(".m4a"),
+            String::from(".flac"),
+            String::from(".mp4"),
+            String::from(".wma"),
+            String::from(".aac"),
+            String::from(".aiff"),
+            String::from(".alac")
         ];
         for entry in fs::read_dir(path)? {
             let entry = entry?;
