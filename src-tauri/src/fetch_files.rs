@@ -37,8 +37,6 @@ pub mod file_scanning {
                 }
             }
         }
-
-        println!("{:#?}", tracks);
         Ok(tracks)
     }
 
