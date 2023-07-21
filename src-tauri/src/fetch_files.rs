@@ -1,9 +1,9 @@
 #[derive(Debug)]
 pub struct Song {
-    name: String,
-    album: String,
-    artist: String,
-    length: u16,
+    pub name: String,
+    pub album: String,
+    pub artist: String,
+    pub length: u16,
 }
 
 pub mod file_scanning {
