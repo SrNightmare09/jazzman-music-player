@@ -1,0 +1,103 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: consolas, Arial, sans-serif;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.app-header {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.header-nav {
+    display: flex;
+}
+
+.header-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 5px 10px;
+    transition: background-color 0.2s;
+}
+
+.header-nav a:hover {
+    background-color: #555;
+}
+
+.content-container {
+    display: flex;
+    flex-grow: 1;
+}
+
+.sidebar {
+    background-color: #f1f1f1;
+    flex-basis: 15%;
+    padding: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    font-size: 20px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.control-panel {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-item {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.sub-options {
+    display: none;
+    margin-left: 0;
+}
+
+.clickable:hover {
+    background-color: #d3d3d3;
+}
+
+.panel-div {
+    height: 45px;
+    width: 100%;
+    border-top: solid 1px white;
+}
