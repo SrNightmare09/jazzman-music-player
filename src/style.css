@@ -176,7 +176,7 @@ h3, h5 {
     aspect-ratio: 1;
     display: flex;
     background-size: cover;
-    background-image: url('Cover.jpg');
+    background-image: url('assets/Cover.jpg');
 }
 
 
