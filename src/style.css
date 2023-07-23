@@ -9,6 +9,7 @@ body {
 .app-container {
     display: flex;
     flex-direction: column;
+    position: relative;
     min-height: 100vh;
 }
 
@@ -48,43 +49,26 @@ body {
 
 .sidebar {
     background-color: #f1f1f1;
-    flex-basis: 15%;
-    padding: 20px;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar li {
-    font-size: 20px;
-    margin-bottom: 5px;
-    display: flex;
-    flex-direction: column;
-}
-
-.main-content {
-    flex-grow: 1;
-    padding: 20px;
+    width: 17%;
 }
 
 .control-panel {
     background-color: #333;
     color: #fff;
-    text-align: center;
     margin-top: auto;
     display: flex;
     flex-direction: column;
 }
 
 .sidebar-item {
-    width: 100%;
+    width: auto;
     height: 30px;
     display: flex;
     align-items: center;
     font-size: 17px;
     cursor: pointer;
+    margin-left: 15px;
+    padding-left: 10px;
 }
 
 .sub-options {
@@ -92,12 +76,107 @@ body {
     margin-left: 0;
 }
 
+.sidebar-item:nth-child(1) {
+    margin-top: 20px;
+}
+
 .clickable:hover {
     background-color: #d3d3d3;
 }
 
-.panel-div {
+.panel-div-down, .panel-div-up {
     height: 45px;
     width: 100%;
     border-top: solid 1px white;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
+
+.panel-div-up {
+    flex-direction: row;
+}
+
+.track-info {
+    height: 100%;
+    border-right: solid 1px white;
+    width: 17%;
+}
+
+.other {
+    height: 100%;
+    position: relative;
+    flex-grow: 1;
+}
+
+.play-pause {
+    height: 100%;
+    border-right: solid 1px white;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h3, h5 {
+    margin-top: 2px;
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+
+.progress-bar-wrapper {
+    width: 80%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.current-time, .total-time {
+    width: 7%;
+    background-color: black;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-bar {
+    flex-grow: 1;
+    height: 40%;
+    background-color: white;
+}
+
+.song-progress {
+    width: 67%;
+    height: 100%;
+    background-color: #1dd45e;
+}
+
+.main-view-container {
+    width: auto;
+    height: auto;
+    flex-grow: 1;
+    padding: 15px;
+}
+
+/* remove this if there is no display conflict */
+.main-view {
+    background-color: #d3d3d3;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 10px;
+    overflow: auto;
+}
+
+.main-view i {
+    aspect-ratio: 1;
+    display: flex;
+    background-size: cover;
+    background-image: url('Cover.jpg');
+}
+
+

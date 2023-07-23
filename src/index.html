@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="main.js" defer></script>
+    <script src="script.js" defer></script>
     <title>Jazzman</title>
 </head>
 
 <body>
     <div class="app-container">
+
         <header class="app-header">
             <nav class="header-nav">
                 <a href="#">File</a>
@@ -19,7 +20,7 @@
         </header>
 
         <div class="content-container">
-            <div class="sidebar">
+            <div class="sidebar" id="sidebar">
                 <div class="sidebar-item clickable" onclick="toggleSubOptions('albums')">Albums</div>
                 <div class="sidebar-item clickable" onclick="toggleSubOptions('artists')">Artists</div>
                 <div class="sidebar-item clickable" onclick="toggleSubOptions('playlists')">Playlists</div>
@@ -30,14 +31,56 @@
                 </div>
             </div>
 
-            <div class="main-content">
+            <main class="main-view-container">
+                <div class="main-view">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </div>
+            </main>
 
-            </div>
         </div>
 
         <footer class="control-panel">
-            <div class="control-buttons panel-div"></div>
-            <div class="control-buttons panel-div"></div>
+            <div class="control-buttons panel-div-up">
+                <div class="track-info">
+                    <h3><b>Lose Yourself</b></h3>
+                    <h5>Eminem</h5>
+                </div>
+                <div class="play-pause">
+                    <div class="button-container">
+                        <button>|&lt;</button>
+                        <button>| |</button>
+                        <button>&gt;|</button>
+                    </div>
+                </div>
+                <div class="other">
+                    <button>s</button>
+                    <button>L</button>
+                    <button>&hearts;</button>
+                    <div id="volume-slider-wrapper">
+                        <input type="range" min="0" max="100" value="12" id="volume-slider">
+                    </div>
+                </div>
+            </div>
+            <div class="control-buttons panel-div-down">
+                <div class="progress-bar-wrapper">
+                    <div class="current-time">
+                        0:00
+                    </div>
+                    <div class="progress-bar">
+                        <div class="song-progress"></div>
+                    </div>
+                    <div class="total-time">
+                        5:26
+                    </div>
+                </div>
+            </div>
         </footer>
     </div>
 </body>
