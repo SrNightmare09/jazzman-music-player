@@ -90,7 +90,7 @@ body, html {
 }
 
 .play-pause {
-    width: 60%;
+    width: 100vh;
 }
 
 .other-controls {
