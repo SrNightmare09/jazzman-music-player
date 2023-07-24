@@ -1,65 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
     <title>Jazzman</title>
+    <link rel="stylesheet" type="text/css" href="css/vh-grid.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
-
 <body>
-    <div class="app-container">
-
-        <header class="app-header">
-            <nav class="header-nav">
-                <a href="#">File</a>
-                <a href="#">Options</a>
-            </nav>
+    <div class="container">
+        <header class="header grid-item">
+            <a href="#">File</a>
+            <a href="#">Options</a>
         </header>
-
-        <div class="content-container">
-            <div class="sidebar" id="sidebar">
-                <div class="sidebar-item clickable" onclick="toggleSubOptions('albums')">Albums</div>
-                <div class="sidebar-item clickable" onclick="toggleSubOptions('artists')">Artists</div>
-                <div class="sidebar-item clickable" onclick="toggleSubOptions('playlists')">Playlists</div>
-                <div class="sub-options" id="playlistsOptions">
-                    <div class="sidebar-item">Test 1</div>
-                    <div class="sidebar-item">Fire</div>
-                    <div class="sidebar-item">Water</div>
-                </div>
-            </div>
-
-            <main class="main-view-container">
-                <div class="main-view">
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                </div>
-            </main>
-
-        </div>
-
-        <footer class="control-panel">
-            <div class="control-buttons panel-div-up">
+        <aside class="sidebar grid-item">
+            <div class="track-artwork"></div>
+        </aside>
+        <main class="main-view grid-item"></main>
+        <footer class="footer grid-item">
+            <div class="playback-panel-top">
                 <div class="track-info">
-                    <h3><b>Lose Yourself</b></h3>
-                    <h5>Eminem</h5>
+                    <p class="track-title">Lose Yourself</p>
+                    <p class="track-artist">Eminem</p>
                 </div>
                 <div class="play-pause">
-                    <div class="button-container">
-                        <button>|&lt;</button>
-                        <button>| |</button>
-                        <button>&gt;|</button>
-                    </div>
+                    <button>|&lt;</button>
+                    <button>| |</button>
+                    <button>&gt;|</button>
                 </div>
-                <div class="other">
+                <div class="other-controls">
                     <button>s</button>
                     <button>L</button>
                     <button>&hearts;</button>
@@ -68,7 +35,8 @@
                     </div>
                 </div>
             </div>
-            <div class="control-buttons panel-div-down">
+
+            <div class="control-buttons playback-panel-down">
                 <div class="progress-bar-wrapper">
                     <div class="current-time">
                         0:00
@@ -84,5 +52,4 @@
         </footer>
     </div>
 </body>
-
 </html>
