@@ -1,20 +1,54 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Jazzman</title>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
+
 <body>
     <div class="container">
-        <header class="header grid-item">
+        <header class="header">
             <a href="#">File</a>
             <a href="#">Options</a>
         </header>
-        <aside class="sidebar grid-item">
-            <div class="track-artwork"></div>
+
+        <aside class="sidebar">
+            <div class="lib-nav">
+                <div class="sidebar-item clickable parent-option" onclick="toggleSubOptions('albums')">Albums</div>
+                <div class="sidebar-item clickable parent-option" onclick="toggleSubOptions('artists')">Artists</div>
+                <div class="sidebar-item clickable parent-option" onclick="toggleSubOptions('playlists')">Playlists</div>
+                <div class="sub-options" id="playlistsOptions">
+                    <div class="sidebar-item" id="sub-option">Test 1</div>
+                    <div class="sidebar-item" id="sub-option">Fire</div>
+                    <div class="sidebar-item" id="sub-option">Water</div>
+                </div>
+            </div>
+            <div class="track-artwork-wrapper">
+                <div class="track-artwork">
+            </div>
         </aside>
-        <main class="main-view grid-item"></main>
-        <footer class="footer grid-item">
+
+        <main class="main-view-wrapper">
+            <div class="main-view-scroll">
+                <div class="main-view">
+                    <span class="grid-cell"></span>
+                    <span class="grid-cell"></span>
+                    <span class="grid-cell"></span>
+                    <span class="grid-cell"></span>
+                    <span class="grid-cell"></span>
+                    <span class="grid-cell"></span>
+                    <span class="grid-cell"></span>
+                    <span class="grid-cell"></span>
+                    <span class="grid-cell"></span>
+                    <span class="grid-cell"></span>
+                    <span class="grid-cell"></span>
+                    <span class="grid-cell"></span>
+                    <span class="grid-cell"></span>
+                </div>
+            </div>
+        </main>
+        <footer class="footer">
             <div class="playback-panel-top">
                 <div class="track-info">
                     <p class="track-title">Lose Yourself</p>
@@ -28,7 +62,7 @@
                 <div class="other-controls">
                     <button>s</button>
                     <button>L</button>
-                    <button>&hearts;</button>
+                    <button>Love</button>
                     <div id="volume-slider-wrapper">
                         <input type="range" min="0" max="100" value="12" id="volume-slider">
                     </div>
@@ -51,4 +85,14 @@
         </footer>
     </div>
 </body>
+
 </html>
+
+<script>
+    function toggleSubOptions(id) {
+        const subOptions = document.getElementById('playlistsOptions');
+        if (id === 'playlists') {
+            subOptions.style.display = subOptions.style.display === "none" ? "block" : "none";
+        }
+    }
+</script>

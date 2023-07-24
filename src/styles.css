@@ -1,0 +1,209 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'consolas';
+}
+
+:root {
+    --sidebar-width: 17%;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-rows: 3% 1fr 11%;
+    height: 100%;
+}
+
+.header {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+    background-color: #333;
+    color: white;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.header a {
+    margin-left: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #fff;
+    transition: background-color 0.2s;
+}
+
+.header a:hover {
+    background-color: #555;
+}
+
+
+.sidebar {
+    grid-column: 1;
+    grid-row: 2;
+    color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    background-color: #555;
+}
+
+.main-view-wrapper {
+    grid-column: 2;
+    grid-row: 2;
+    background-color: #ddd;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.footer {
+    grid-column: 1 / span 2;
+    grid-row: 3;
+    background-color: #333;
+    color: white;
+    line-height: 50px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+}
+
+.playback-panel-top, .playback-panel-down {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.playback-panel-down {
+    align-items: center;
+}
+
+.track-info {
+    width: 17%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+.play-pause {
+    width: 60%;
+}
+
+.other-controls {
+    flex-grow: 1;
+    display: flex;
+}
+
+.track-title {
+    font-size: 22.5px;
+}
+
+.track-artist {
+    font-size: 15px;
+}
+
+p {
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 5px;
+    line-height: 10px;
+}
+
+.play-pause {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.track-artwork-wrapper {
+    margin-top: auto;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.track-artwork {
+    width: 95%;
+    aspect-ratio: 1;
+    background-size: cover;
+    border-radius: 7.5px;
+    background-image: url('assets/Cover.jpg');
+}
+
+.progress-bar-wrapper {
+    width: 80%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.current-time, .total-time {
+    width: 7%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-bar {
+    flex-grow: 1;
+    height: 40%;
+    background-color: white;
+}
+
+.song-progress {
+    width: 67%;
+    height: 100%;
+    background-color: #1dd45e;
+}
+
+.lib-nav {
+    width: 100%;
+    flex-grow: 1;
+}
+
+.sidebar-item {
+    width: auto;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    cursor: pointer;
+    margin-left: 15px;
+    padding-left: 10px;
+}
+
+.sidebar-item.clickable + .sub-options #sub-option {
+    padding-left: 20px;
+}
+
+.parent-option:nth-child(1) {
+    margin-top: 10px;
+}
+
+.main-view-scroll {
+    height: 100%;
+    overflow: scroll;
+}
+
+.main-view {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 5px;
+}
+
+.grid-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    background-size: cover;
+    background-image: url('assets/Cover.jpg');
+}
