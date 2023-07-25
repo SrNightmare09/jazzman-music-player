@@ -5,13 +5,9 @@ body, html {
     font-family: 'consolas';
 }
 
-:root {
-    --sidebar-width: 17%;
-}
-
 .container {
     display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-columns: 17% 1fr;
     grid-template-rows: 3% 1fr 11%;
     height: 100%;
 }
@@ -27,8 +23,7 @@ body, html {
 }
 
 .header a {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 0 10px;
     text-decoration: none;
     color: #fff;
     transition: background-color 0.2s;
@@ -62,9 +57,6 @@ body, html {
     background-color: #333;
     color: white;
     line-height: 50px;
-}
-
-.footer {
     display: flex;
     flex-direction: column;
 }
@@ -91,6 +83,9 @@ body, html {
 
 .play-pause {
     width: 60%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .other-controls {
@@ -111,12 +106,6 @@ p {
     margin-top: 10px;
     margin-left: 5px;
     line-height: 10px;
-}
-
-.play-pause {
-    align-items: center;
-    display: flex;
-    justify-content: center;
 }
 
 .track-artwork-wrapper {
