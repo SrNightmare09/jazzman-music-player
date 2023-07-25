@@ -13,6 +13,7 @@ pub mod db {
                     song_name TEXT,
                     song_artist TEXT,
                     song_album TEXT,
+                    song_artwork TEXT,
                     song_length INTEGER
                 );
             ",
@@ -25,9 +26,9 @@ pub mod db {
     pub fn insert_item(track: &Song) -> Result<()> {
         let conn = open_connection()?;
         let command = format!("
-        INSERT INTO songs(song_name, song_artist, song_album, song_length)
-        VALUES('{}', '{}', '{}', '{}');
-        ", track.name, track.artist, track.album, track.length);
+        INSERT INTO songs(song_name, song_artist, song_album, song_artwork, song_length)
+        VALUES('{}', '{}', '{}', '{}', '{}');
+        ", track.name, track.artist, track.album, track.artwork, track.length);
 
         let sql: &str = &command;
 
