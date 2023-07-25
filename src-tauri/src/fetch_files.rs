@@ -98,7 +98,7 @@ pub mod file_scanning {
                 if let Some(file_name) = entry.file_name().to_str() {
                     if artwork_extensions
                         .iter()
-                        .any(|ext| file_name.ends_with(&format!("Cover{}", ext)))
+                        .any(|ext| file_name.to_lowercase().ends_with(&format!("Cover{}", ext)))
                     {
                         let art_path: PathBuf = path.join(file_name);
                         artwork = art_path.into_os_string().into_string().unwrap().replace("\\", "/");
