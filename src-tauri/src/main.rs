@@ -1,23 +1,28 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use database::db;
-use fetch_files::file_scanning::get_data;
+mod db;
+mod fs;
 
-mod fetch_files;
-mod database;
+use db::{create_table, insert_item};
+use fs::get_data;
 
 fn main() {
-    database::db::create_table();
-    let data = get_data("D:/Music/");
+    if let Err(err) = create_table::create_table() {
+        eprintln!("Error creating table: {}", err.to_string());
+    }
+
+    let data = get_data::get_data("D:/Music/"); // add function to replace // and \\ with /
 
     match data {
         Ok(vect) => {
             for song in &vect {
-                db::insert_item(song);
+                if let Err(err) = insert_item::insert_item(song) {
+                    eprintln!("Error inserting item: {}", err);
+                }
             }
         }
         Err(err) => {
-            eprintln!("{}", err);
+            eprintln!("Error getting data: {}", err);
         }
     }
 
