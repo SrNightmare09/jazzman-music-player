@@ -1,12 +1,4 @@
-// DO NOT REMOVE
-// #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-
-// fn main() {
-//     tauri::Builder::default()
-//         .invoke_handler(tauri::generate_handler![])
-//         .run(tauri::generate_context!())
-//         .expect("error while running tauri application");
-// }
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use database::db;
 use fetch_files::file_scanning::get_data;
@@ -28,4 +20,9 @@ fn main() {
             eprintln!("{}", err);
         }
     }
+
+    tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
