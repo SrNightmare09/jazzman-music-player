@@ -12,7 +12,6 @@ pub mod file_scanning {
     use std::fs;
     use std::io;
     use std::path::Path;
-    use std::path::PathBuf;
 
     use super::Song;
 
@@ -27,7 +26,7 @@ pub mod file_scanning {
             for album in albums {
                 let album_path = album_directory.join(&album);
                 let songs = get_files(&album_path)?;
-                let artwork = get_artwork(&album_path)?;
+                let artwork = get_artwork(&album_path.to_string_lossy())?;
 
                 for song in songs {
                     let track = Song {
@@ -82,32 +81,30 @@ pub mod file_scanning {
         Ok(files)
     }
 
-    fn get_artwork(path: &Path) -> Result<String, io::Error> {
-        let artwork_extensions: Vec<String> = vec![
-            String::from(".jpg"),
-            String::from(".jpeg"),
-            String::from(".png"),
-            String::from(".gif"),
-        ];
+    fn get_artwork(path: &str) -> Result<String, io::Error> {
+        let valid_filenames = vec!["cover.jpg", "cover.png", "cover.jpeg"];
 
-        let mut artwork: String = String::new();
-        for entry in fs::read_dir(path)? {
-            let entry = entry?;
-            if entry.path().is_file() {
-                if let Some(file_name) = entry.file_name().to_str() {
-                    if artwork_extensions
-                        .iter()
-                        .any(|ext| file_name.to_lowercase().ends_with(&format!("Cover{}", ext)))
-                    {
-                        let art_path: PathBuf = path.join(file_name);
-                        artwork = art_path.into_os_string().into_string().unwrap().replace("\\", "/");
+        if let Ok(entries) = fs::read_dir(path) {
+            for entry in entries {
+                if let Ok(entry) = entry {
+                    if let Ok(file_type) = entry.file_type() {
+                        if file_type.is_file() {
+                            if let Some(file_name) = entry.file_name().to_str() {
+                                if valid_filenames.contains(&file_name.to_lowercase().as_str()) {
+                                    let dir_path =
+                                        format!("{}/{}", path.to_string(), file_name.to_string())
+                                            .replace("//", "/").replace("\\", "/");
+                                    return Ok(dir_path);
+                                }
+                            }
+                        }
                     }
                 }
-                else {
-                    ()
-                }
             }
+        } else {
+            eprintln!("Error reading directory: {}", path);
         }
-        Ok(artwork)
+
+        Ok(String::new()) // return a file path of an default album cover
     }
 }
