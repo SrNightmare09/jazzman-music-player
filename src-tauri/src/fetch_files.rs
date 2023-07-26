@@ -9,7 +9,6 @@ pub struct Song {
 
 pub mod file_scanning {
 
-    use std::fmt::format;
     use std::fs;
     use std::io;
     use std::path::Path;
