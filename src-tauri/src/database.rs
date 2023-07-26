@@ -41,7 +41,7 @@ pub mod db {
     }
 
     fn open_connection() -> Result<Connection> {
-        let path: &str = "../db/library.db";
+        let path: &str = "db/library.db";
         Connection::open(path)
     }
 }
