@@ -1,19 +1,20 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use database::db;
 use fetch_files::file_scanning::get_data;
 
 mod fetch_files;
-mod database;
+mod db;
+
+use db::{create_table, insert_item};
 
 fn main() {
-    database::db::create_table();
-    let data = get_data("D:/Music/");
+    create_table::create_table();
+    let data = get_data("D:/Music/"); // add function to replace // and \\ with /
 
     match data {
         Ok(vect) => {
             for song in &vect {
-                db::insert_item(song);
+                insert_item::insert_item(song);
             }
         }
         Err(err) => {
