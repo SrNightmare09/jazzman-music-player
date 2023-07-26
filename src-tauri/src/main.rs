@@ -1,18 +1,17 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use fetch_files::file_scanning::get_data;
-
 mod db;
-mod fetch_files;
+mod fs;
 
 use db::{create_table, insert_item};
+use fs::get_data;
 
 fn main() {
     if let Err(err) = create_table::create_table() {
         eprintln!("Error creating table: {}", err.to_string());
     }
 
-    let data = get_data("D:/Music/"); // add function to replace // and \\ with /
+    let data = get_data::get_data("D:/Music/"); // add function to replace // and \\ with /
 
     match data {
         Ok(vect) => {
