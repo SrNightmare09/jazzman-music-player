@@ -1,31 +1,47 @@
 use rusqlite::Result;
 
+use tauri::command;
+
+use serde::Serialize;
+
 use super::open_connection::open_connection;
 
-struct Song {
+#[derive(Serialize)]
+pub struct Song {
     name: String,
     album: String,
     artist: String,
     artwork: String,
-    length: u16,
+    length: u32
 }
 
-pub fn fetch_item() -> Result<()> {
-    let conn = open_connection()?;
+#[tauri::command]
+pub fn fetch_item() -> Result<Vec<Song>, String> {
+    let conn = open_connection().map_err(|err| format!("Database error: {}", err))?;
 
-    let mut sql = conn.prepare(
-        "SELECT song_name, song_artist, song_album, song_artwork, song_length FROM songs"
-    )?;
+    let mut sql = conn
+        .prepare("SELECT song_name, song_artist, song_album, song_artwork, song_length FROM songs")
+        .map_err(|err| format!("SQLite prepare error: {}", err))?;
 
-    let info = sql.query_map([], |row| {
-        Ok(Song {
-            name: row.get(0)?,
-            artist: row.get(1)?,
-            album: row.get(2)?,
-            artwork: row.get(3)?,
-            length: row.get(4)?,
+    let info = sql
+        .query_map([], |row| {
+            Ok(Song {
+                name: row.get(0)?,
+                artist: row.get(1)?,
+                album: row.get(2)?,
+                artwork: row.get(3)?,
+                length: row.get(4)?,
+            })
         })
-    })?;
+        .map_err(|err| format!("SQLite query_map error: {}", err))?;
 
-    Ok(())
+    let songs: Vec<Song> = info
+        .collect::<Result<Vec<Song>, _>>()
+        .map_err(|err| format!("Error collecting songs: {}", err))?;
+
+    if songs.is_empty() {
+        Err("No songs found".to_string())
+    } else {
+        Ok(songs)
+    }
 }
