@@ -13,7 +13,8 @@ pub fn get_artwork(path: &str) -> Result<String, io::Error> {
                             if valid_filenames.contains(&file_name.to_lowercase().as_str()) {
                                 let dir_path =
                                     format!("{}/{}", path.to_string(), file_name.to_string())
-                                        .replace("//", "/").replace("\\", "/");
+                                        .replace("//", "/")
+                                        .replace("\\", "/");
                                 return Ok(dir_path);
                             }
                         }
