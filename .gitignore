@@ -148,4 +148,5 @@ Cargo.lock
 *.exe
 
 # Database
-*.db
+database
+user
