@@ -1,3 +1,5 @@
+const tauri = window.__TAURI__;
+
 function toggleSubOptions(id) {
 	const subOptions = document.getElementById('playlistsOptions');
 	if (id === 'playlists') {
@@ -5,27 +7,23 @@ function toggleSubOptions(id) {
 	}
 }
 
-function getLibraryArtwork() {
-	const main_view = document.getElementById('test');
+async function getLibraryArtwork() {
+	const main_view = document.getElementById('main-view');
 
-	let child = document.createElement('span');
-	child.classList.add('grid-cell');
-	child.style.backgroundImage = 'url(assets/Cover.jpg)';
+	let artwork = [...new Set(await rustfun())];
 
-	main_view.appendChild(child);
+	artwork.forEach((dir) => {
+		let child = document.createElement('span');
+		child.classList.add('grid-cell');
+		child.style.backgroundImage = `url('${dir}')`; // find some way to enable directories with spaces
+		main_view.appendChild(child);
+	});
 }
 
 async function rustfun() {
 	try {
-		const result = await window.__TAURI__.invoke('fetch_item', {});
-		let albums = [];
-		for (let i = 0; i < result.length(); i++) {
-			let info = {
-				name: result[i].name,
-				artwork: result[i].artwork
-			};
-			albums.push(info);
-		}
+		const result = await tauri.invoke('fetch_item', { item: 'song_artwork' });
+		return result;
 	} catch (error) {
 		console.error('Error calling Rust function:', error);
 	}
