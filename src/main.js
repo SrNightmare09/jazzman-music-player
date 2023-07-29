@@ -10,6 +10,9 @@ function toggleSubOptions(id) {
 async function getLibraryArtwork() {
 	const main_view = document.getElementById('main-view');
 
+	// remove current artwork
+	main_view.innerHTML = '';
+
 	// remove repeated items
 	let artwork = [...new Set(await tauri.invoke('fetch_item', { item: 'song_artwork' }))];
 
