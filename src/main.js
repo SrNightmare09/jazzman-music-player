@@ -10,7 +10,8 @@ function toggleSubOptions(id) {
 async function getLibraryArtwork() {
 	const main_view = document.getElementById('main-view');
 
-	let artwork = [...new Set(await rustfun())];
+	// remove repeated items
+	let artwork = [...new Set(await tauri.invoke('fetch_item', { item: 'song_artwork' }))];
 
 	artwork.forEach((dir) => {
 		let child = document.createElement('span');
@@ -20,11 +21,7 @@ async function getLibraryArtwork() {
 	});
 }
 
-async function rustfun() {
-	try {
-		const result = await tauri.invoke('fetch_item', { item: 'song_artwork' });
-		return result;
-	} catch (error) {
-		console.error('Error calling Rust function:', error);
-	}
+function scan_music() {
+	tauri.invoke('scan_music', {});
+	getLibraryArtwork();
 }
