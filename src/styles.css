@@ -199,3 +199,7 @@ p {
     aspect-ratio: 1;
     background-size: cover;
 }
+
+.sub-options {
+    display: none;
+}
