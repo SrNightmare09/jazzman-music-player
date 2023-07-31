@@ -1,10 +1,8 @@
 const tauri = window.__TAURI__;
 
 function toggleSubOptions(id) {
-	const subOptions = document.getElementById('playlistsOptions');
-	if (id === 'playlists') {
-		subOptions.style.display = subOptions.style.display === "none" ? "block" : "none";
-	}
+	const element = document.getElementById(id + 'Options');
+	element.style.display = element.style.display === 'none' ? 'block' : 'none';
 }
 
 async function getLibraryArtwork() {
