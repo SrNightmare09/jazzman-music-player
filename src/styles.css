@@ -167,10 +167,12 @@ p {
     cursor: pointer;
     margin-left: 15px;
     padding-left: 10px;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
-.sidebar-item.clickable + .sub-options #sub-option {
-    padding-left: 20px;
+.sidebar-item.clickable + .sub-options {
+    padding-left: 15px;
 }
 
 .parent-option:nth-child(1) {
