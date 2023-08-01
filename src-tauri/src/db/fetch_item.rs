@@ -1,4 +1,5 @@
 use rusqlite::Result;
+use std::collections::HashSet;
 
 use tauri::command;
 
@@ -20,5 +21,10 @@ pub fn fetch_item(item: &str) -> Result<Vec<String>, String> {
         .collect::<Result<Vec<String>, _>>() // Collect into Vec<String>
         .map_err(|err| format!("SQLite collect error: {}", err))?;
 
-    Ok(info)
+    let unique: HashSet<_> = info.into_iter().collect();
+    let mut result: Vec<_> = unique.into_iter().collect();
+
+    result.sort();
+
+    Ok(result)
 }

@@ -21,7 +21,7 @@ async function getLibraryArtwork() {
 	main_view.innerHTML = '';
 
 	// remove repeated items
-	let artwork = [...new Set(await tauri.invoke('fetch_item', { item: 'song_artwork' }))];
+	let artwork = await tauri.invoke('fetch_item', { item: 'song_artwork' });
 
 	artwork.forEach((dir) => {
 		let child = document.createElement('span');
@@ -39,11 +39,12 @@ async function getArtists() {
 
 	artist_list.innerHTML = '';
 
-	let artist = [...new Set(await tauri.invoke('fetch_item', { item: 'song_artist' }))].sort();
+	let artist = await tauri.invoke('fetch_item', { item: 'song_artist' });
 
 	artist.forEach((song_artist) => {
 		let child = document.createElement('div');
 		child.classList.add('sidebar-item');
+		child.setAttribute("id", "sidebar-artist");
 		child.innerText = song_artist;
 		artist_list.appendChild(child);
 	});
@@ -54,7 +55,7 @@ async function getAlbums() {
 
 	album_list.innerHTML = '';
 
-	let album = [...new Set(await tauri.invoke('fetch_item', { item: 'song_album' }))].sort();
+	let album = await tauri.invoke('fetch_item', { item: 'song_album' });
 
 	album.forEach((album_artist) => {
 		let child = document.createElement('div');
@@ -63,3 +64,11 @@ async function getAlbums() {
 		album_list.appendChild(child);
 	});
 }
+
+document.addEventListener('click', (e) => {
+	const artist_sidebar = e.target.closest('#sidebar-artist');
+
+	if (artist_sidebar) {
+		console.log(artist_sidebar.innerText);
+	}
+})
