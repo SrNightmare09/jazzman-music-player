@@ -69,6 +69,12 @@ document.addEventListener('click', (e) => {
 	const artist_sidebar = e.target.closest('#sidebar-artist');
 
 	if (artist_sidebar) {
-		console.log(artist_sidebar.innerText);
+		fetchArtistAlbums(artist_sidebar.innerText);
 	}
 })
+
+async function fetchArtistAlbums(artist) {
+	const albums = await tauri.invoke('fetch_specific', { query: artist });
+
+	console.log(albums);
+}
