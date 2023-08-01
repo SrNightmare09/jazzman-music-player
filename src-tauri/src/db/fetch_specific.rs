@@ -21,8 +21,5 @@ pub fn fetch_specific(query: &str) -> HashMap<String, String> { // add error han
         }
     }
 
-    // Print out the contents of the HashMap
-    println!("{:#?}", songs_map);
-
     songs_map
 }

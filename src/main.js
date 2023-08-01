@@ -75,6 +75,14 @@ document.addEventListener('click', (e) => {
 
 async function fetchArtistAlbums(artist) {
 	const albums = await tauri.invoke('fetch_specific', { query: artist });
+	const main_view = document.getElementById('main-view');
 
-	console.log(albums);
+	main_view.innerHTML = '';
+
+	for (const key in albums) {
+		let child = document.createElement('span');
+		child.classList.add('grid-cell');
+		child.style.backgroundImage = `url('${albums[key].trim()}')`;
+		main_view.appendChild(child);
+	}
 }
