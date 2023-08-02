@@ -1,20 +1,16 @@
 use tauri::command;
 
-use super::super::db::{insert_item, create_table, delete_table};
+use super::super::db::{insert_item, clear_table};
 use super::super::fs::get_data;
 
 #[tauri::command]
 pub fn scan_music() {
 
-    if let Err(err) = delete_table::delete_table() {
+    if let Err(err) = clear_table::clear_table("songs") {
         eprintln!("Error creating table: {}", err.to_string());
     }
 
-    if let Err(err) = create_table::create_table() {
-        eprintln!("Error creating table: {}", err.to_string());
-    }
-
-    let data = get_data::get_data("D:/Coding/yew-test/jazzman-music-player/src/user/music/"); // add function to replace // and \\ with /
+    let data = get_data::get_data("D:/Coding/yew-test/jazzman-music-player/src/user/music/"); // TODO: add function to replace // and \\ with /
 
     match data {
         Ok(vect) => {
