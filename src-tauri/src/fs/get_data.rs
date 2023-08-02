@@ -1,6 +1,9 @@
 use std::io;
 use std::path::Path;
 
+use rand::distributions::Alphanumeric;
+use rand::Rng;
+
 use super::{get_artwork::get_artwork, get_files::get_files, get_folders::get_folders, song::Song};
 
 pub fn get_data(path: &str) -> Result<Vec<Song>, io::Error> {
@@ -23,10 +26,18 @@ pub fn get_data(path: &str) -> Result<Vec<Song>, io::Error> {
                     artist: artist.to_string(),
                     artwork: artwork.to_string(),
                     length: 0,
+                    id: generate_id()
                 };
                 tracks.push(track);
             }
         }
     }
     Ok(tracks)
+}
+
+fn generate_id() -> String {
+    let rng = rand::thread_rng();
+    let random_string: String = rng.sample_iter(&Alphanumeric).take(10).map(char::from).collect();
+
+    random_string
 }

@@ -5,4 +5,5 @@ pub struct Song {
     pub artist: String,
     pub artwork: String,
     pub length: u16,
+    pub id: String
 }

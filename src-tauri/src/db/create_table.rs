@@ -12,7 +12,8 @@ pub fn create_table() -> Result<()> {
                     song_artist TEXT,
                     song_album TEXT,
                     song_artwork TEXT,
-                    song_length INTEGER
+                    song_length INTEGER,
+                    song_id TEXT
                 );
             ",
         [],
