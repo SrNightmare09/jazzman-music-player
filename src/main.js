@@ -1,15 +1,22 @@
 const tauri = window.__TAURI__;
 
-function toggleSubOptions(id) {
-	const element = document.getElementById(id + 'Options');
-    if (element.style.display === 'none' || element.style.display === '') {
-        element.style.display = 'block';
-    } else {
-        element.style.display = 'none';
-    }
+document.onload = initialize();
+
+async function initialize() {
+
+	await tauri.invoke('initialize', {});
 }
 
-function scan_music() {
+function toggleSubOptions(id) {
+	const element = document.getElementById(id + 'Options');
+	if (element.style.display === 'none' || element.style.display === '') {
+		element.style.display = 'block';
+	} else {
+		element.style.display = 'none';
+	}
+}
+
+async function scan_music() {
 	tauri.invoke('scan_music', {});
 	getLibraryArtwork();
 }
@@ -26,7 +33,7 @@ async function getLibraryArtwork() {
 	artwork.forEach((dir) => {
 		let child = document.createElement('span');
 		child.classList.add('grid-cell');
-		child.style.backgroundImage = `url('${dir}')`; // find some way to enable directories with spaces
+		child.style.backgroundImage = `url('${dir}')`; //! TODO: find some way to enable directories with spaces
 		main_view.appendChild(child);
 	});
 
@@ -71,7 +78,7 @@ document.addEventListener('click', (e) => {
 	if (artist_sidebar) {
 		fetchArtistAlbums(artist_sidebar.innerText);
 	}
-})
+});
 
 async function fetchArtistAlbums(artist) {
 	const albums = await tauri.invoke('fetch_specific', { query: artist });
@@ -85,4 +92,14 @@ async function fetchArtistAlbums(artist) {
 		child.style.backgroundImage = `url('${albums[key].trim()}')`;
 		main_view.appendChild(child);
 	}
+}
+
+async function create_playlist() {
+	const playlist_sidebar = document.getElementById('playlistsOptions');
+
+	let child = document.createElement('div');
+	child.classList.add('sidebar-item');
+	child.setAttribute("id", "sidebar-playlist");
+	child.innerText = 'Test :)';
+	playlist_sidebar.appendChild(child);
 }
