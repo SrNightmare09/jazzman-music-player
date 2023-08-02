@@ -2,12 +2,10 @@ use rusqlite::Result;
 
 use super::open_connection::open_connection;
 
-pub fn delete_table() -> Result<()> {
+pub fn clear_table(table_name: &str) -> Result<()> {
     let conn = open_connection()?;
 
-    let table_name = "songs";
-
-    let sql = format!("DROP TABLE IF EXISTS {}", table_name);
+    let sql = format!("DELETE FROM {}", table_name);
 
     conn.execute(&sql, [])?;
 
