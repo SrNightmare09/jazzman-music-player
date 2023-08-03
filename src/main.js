@@ -1,6 +1,8 @@
 const tauri = window.__TAURI__;
 
-document.onload = initialize();
+(function() {
+	initialize();
+})();
 
 async function initialize() {
 
