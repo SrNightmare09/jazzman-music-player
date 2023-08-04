@@ -203,3 +203,10 @@ p {
 .sub-options {
     display: none;
 }
+
+#playlist-name-dialog-box {
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    flex-direction: column;
+}

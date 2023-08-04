@@ -16,7 +16,7 @@ pub fn create_table(table_name: &str, columns: Vec<&str>) -> Result<()> {
         statement
     };
 
-    let sql = format!("CREATE TABLE {} ({});", table_name, &fields);
+    let sql = format!("CREATE TABLE IF NOT EXISTS {} ({})", table_name, &fields);
 
     conn.execute(&sql,[],)?;
 
@@ -28,22 +28,15 @@ fn get_data_type(column: &str) -> String {
     let integer = vec!["song_length"];
     let var_char = vec!["song_id"];
 
-    for item in &text {
-        if &column == item {
-            return String::from("TEXT");
-        }
+    if text.contains(&column) {
+        return String::from("TEXT");
+    }
+    if integer.contains(&column) {
+        return String::from("INTEGER");
     }
 
-    for item in &integer {
-        if &column == item {
-            return String::from("INTEGER");
-        }
-    }
-
-    for item in &var_char {
-        if &column == item {
-            return String::from("VARCHAR(10)");
-        }
+    if var_char.contains(&column) {
+        return String::from("VARCHAR(10)");
     }
     return String::from("UNKNOWN");
 }

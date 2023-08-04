@@ -1,6 +1,6 @@
 const tauri = window.__TAURI__;
 
-(function() {
+(function () {
 	initialize();
 })();
 
@@ -96,12 +96,25 @@ async function fetchArtistAlbums(artist) {
 	}
 }
 
-async function create_playlist() {
+async function create_playlist_button() {
+	document.getElementById('playlist-name-box').value = '';
+	document.getElementById('playlist-name-dialog-box').style.display = 'block';
+}
+
+document.getElementById('create-playlist-button').onclick = () => {
+	const playlist_name = document.getElementById('playlist-name-box').value;
 	const playlist_sidebar = document.getElementById('playlistsOptions');
+
+	if (playlist_name == '') {
+		document.getElementById('playlist-name-dialog-box').style.display = 'none';
+		return;
+	}
 
 	let child = document.createElement('div');
 	child.classList.add('sidebar-item');
-	child.setAttribute("id", "sidebar-playlist");
-	child.innerText = 'Test :)';
+	child.setAttribute('id', 'sidebar-playlist');
+	child.innerText = playlist_name;
 	playlist_sidebar.appendChild(child);
+
+	document.getElementById('playlist-name-dialog-box').style.display = 'none';
 }
