@@ -26,5 +26,5 @@ pub fn get_artwork(path: &str) -> Result<String, io::Error> {
         eprintln!("Error reading directory: {}", path);
     }
 
-    Ok(String::new()) // return a file path of an default album cover
+    Ok(String::from("assets/default_cover.png")) // return a file path of an default album cover
 }

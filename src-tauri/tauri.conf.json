@@ -41,8 +41,8 @@
         "fullscreen": false,
         "resizable": true,
         "title": "rave",
-        "width": 500,
-        "height": 400
+        "width": 850,
+        "height": 700
       }
     ]
   }
