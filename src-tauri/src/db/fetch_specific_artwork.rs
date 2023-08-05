@@ -5,7 +5,7 @@ use tauri::command;
 use super::open_connection::open_connection;
 
 #[tauri::command]
-pub fn fetch_specific(query: &str) -> HashMap<String, String> { // add error handling later i give up on it
+pub fn fetch_specific_artwork(query: &str) -> HashMap<String, String> { // add error handling later i give up on it
     let conn = open_connection().unwrap();
 
     let sql = "SELECT song_album, song_artwork FROM songs WHERE song_artist = ?";
