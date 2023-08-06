@@ -91,54 +91,6 @@ document.addEventListener('click', (e) => {
 	}
 });
 
-async function showAlbumDetails(album) { // hell(p)
-
-	const scroll_view = document.getElementById('main-view-scroll');
-	const album_details = document.getElementById('album-details');
-	const album_name = document.getElementById('album-details-name');
-	const artist_name = document.getElementById('album-details-artist');
-	const album_artwork = document.getElementById('album-details-artwork');
-	const song_list = document.getElementById('album-details-songs');
-
-	const songs = await tauri.invoke('fetch_one_to_one', { selectQry: 'song_name', whereQry: 'song_album', query: album });
-	const artist = [...new Set(await tauri.invoke('fetch_one_to_one', { selectQry: 'song_artist', whereQry: 'song_album', query: album }))];
-	const artwork = [...new Set(await tauri.invoke('fetch_one_to_one', { selectQry: 'song_artwork', whereQry: 'song_album', query: album }))];
-
-	scroll_view.style.display = 'none';
-	album_details.style.display = 'block';
-	album_name.innerText = album;
-	artist_name.innerText = artist[0];
-	album_artwork.style.backgroundImage = `url('${artwork}')`;
-	song_list.innerHTML = '';
-
-	let e_song_wrapper = document.createElement('div');
-	e_song_wrapper.setAttribute('id', 'album-details-album-song');
-	song_list.appendChild(e_song_wrapper);
-
-	let song_wrapper = document.getElementById('album-details-album-song');
-	let song_s_no = document.createElement('div');
-	song_s_no.setAttribute('id', 'song-s-no');
-	song_s_no.innerText = '69';
-
-	let song_name = document.createElement('div');
-	song_name.setAttribute('id', 'song-name');
-	song_name.innerText = songs[0];
-
-	let song_like_status = document.createElement('div');
-	song_like_status.setAttribute('id', 'song-like-status');
-	song_like_status.innerText = 'L';
-
-	let song_length = document.createElement('div');
-	song_length.setAttribute('id', 'song-length');
-	song_length.innerText = '0:00';
-
-	song_wrapper.appendChild(song_s_no);
-	song_wrapper.appendChild(song_name);
-	song_wrapper.appendChild(song_like_status);
-	song_wrapper.appendChild(song_length);
-
-}
-
 async function fetchArtistAlbums(artist) {
 	const albums = await tauri.invoke('fetch_specific_artwork', { query: artist });
 	const main_view = document.getElementById('main-view');
@@ -174,4 +126,54 @@ document.getElementById('create-playlist-button').onclick = () => {
 	playlist_sidebar.appendChild(child);
 
 	document.getElementById('playlist-name-dialog-box').style.display = 'none';
+}
+
+async function showAlbumDetails(album) { // hell(p)
+
+	const scroll_view = document.getElementById('main-view-scroll');
+	const album_details = document.getElementById('album-details');
+	const album_name = document.getElementById('album-details-name');
+	const artist_name = document.getElementById('album-details-artist');
+	const album_artwork = document.getElementById('album-details-artwork');
+	const song_list = document.getElementById('album-details-songs');
+
+	const songs = await tauri.invoke('fetch_one_to_one', { selectQry: 'song_name', whereQry: 'song_album', query: album });
+	const artist = [...new Set(await tauri.invoke('fetch_one_to_one', { selectQry: 'song_artist', whereQry: 'song_album', query: album }))];
+	const artwork = [...new Set(await tauri.invoke('fetch_one_to_one', { selectQry: 'song_artwork', whereQry: 'song_album', query: album }))];
+
+	scroll_view.style.display = 'none';
+	album_details.style.display = 'block';
+	album_name.innerText = album;
+	artist_name.innerText = artist[0];
+	album_artwork.style.backgroundImage = `url('${artwork}')`;
+	song_list.innerHTML = '';
+
+	for (let i = 0; i < songs.length; i++) {
+		var e_song_wrapper = document.createElement('div');
+		e_song_wrapper.setAttribute('class', 'album-details-album-song');
+		e_song_wrapper.setAttribute('id', `song-no-${i + 1}`);
+		song_list.appendChild(e_song_wrapper);
+
+		let song_wrapper = document.getElementById(`song-no-${i + 1}`);
+
+		let song_s_no = document.createElement('div');
+		song_s_no.setAttribute('id', 'song-s-no');
+		song_s_no.innerText = `${i + 1}.`;
+		song_wrapper.appendChild(song_s_no);
+
+		let song_name = document.createElement('div');
+		song_name.setAttribute('id', 'song-name');
+		song_name.innerText = songs[i];
+		song_wrapper.appendChild(song_name);
+
+		let song_like_status = document.createElement('div');
+		song_like_status.setAttribute('id', 'song-like-status');
+		song_like_status.innerText = 'L';
+		song_wrapper.appendChild(song_like_status);
+
+		let song_length = document.createElement('div');
+		song_length.setAttribute('id', 'song-length');
+		song_length.innerText = '0:00';
+		song_wrapper.appendChild(song_length);
+	}
 }
