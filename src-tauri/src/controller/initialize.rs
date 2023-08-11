@@ -12,5 +12,10 @@ pub fn initialize() {
         ()
     }
 
-    let playlist_columns: Vec<&str> = vec!["playlist_name", "playlist_sngs"];
+    let playlist_columns: Vec<&str> = vec!["playlist_name", "playlist_id", "playlist_songs"]; // songs is an array with song ids
+    if let Err(err) = create_table("playlists", playlist_columns) {
+        eprintln!("Error creating table: {}", err.to_string());
+    } else {
+        ()
+    }
 }

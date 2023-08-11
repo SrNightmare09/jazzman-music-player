@@ -1,5 +1,4 @@
 use rusqlite::params;
-use std::collections::HashMap;
 use tauri::command;
 
 use super::open_connection::open_connection;
