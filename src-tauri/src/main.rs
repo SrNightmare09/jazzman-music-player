@@ -9,9 +9,7 @@ fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             controller::scan_music::scan_music,
-            db::fetch_item::fetch_item,
-            db::fetch_specific_artwork::fetch_specific_artwork,
-            db::fetch_one_to_one::fetch_one_to_one,
+            db::fetch::fetch,
             controller::initialize::initialize
         ])
         .run(tauri::generate_context!())
