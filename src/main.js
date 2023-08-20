@@ -29,8 +29,9 @@ async function getLibraryArtwork() {
 	// remove current artwork
 	main_view.innerHTML = '';
 
-	// remove repeated items
-	let artwork = await tauri.invoke('fetch_item', { item: 'song_artwork' });
+	let artwork = await tauri.invoke('fetch', { selectQry: 'song_artwork', tableQry: 'songs', whereQry: 'song_artist', item: '%' });
+
+	artwork = [...new Set(artwork[0])];
 
 	artwork.forEach((dir) => {
 		let child = document.createElement('span');
@@ -48,7 +49,9 @@ async function getArtists() {
 
 	artist_list.innerHTML = '';
 
-	let artist = await tauri.invoke('fetch_item', { item: 'song_artist' });
+	var artist = await tauri.invoke('fetch', { selectQry: 'song_artist', tableQry: 'songs', whereQry: 'song_artist', item: '%' });
+
+	artist = [...new Set(artist[0])];;
 
 	artist.forEach((song_artist) => {
 		let child = document.createElement('div');
@@ -64,7 +67,9 @@ async function getAlbums() {
 
 	album_list.innerHTML = '';
 
-	let album = await tauri.invoke('fetch_item', { item: 'song_album' });
+	var album = await tauri.invoke('fetch', { selectQry: 'song_album', tableQry: 'songs', whereQry: 'song_artist', item: '%' });
+
+	album = [...new Set(album[0])];
 
 	album.forEach((album_artist) => {
 		let child = document.createElement('div');
@@ -92,7 +97,8 @@ document.addEventListener('click', (e) => {
 });
 
 async function fetchArtistAlbums(artist) {
-	const albums = await tauri.invoke('fetch_specific_artwork', { query: artist });
+	var albums = await tauri.invoke('fetch', { selectQry: 'song_artwork', tableQry: 'songs', whereQry: 'song_artist', item: artist });
+	albums = [...new Set(albums[0])];
 	const main_view = document.getElementById('main-view');
 
 	main_view.innerHTML = '';
@@ -137,9 +143,13 @@ async function showAlbumDetails(album) { // hell(p)
 	const album_artwork = document.getElementById('album-details-artwork');
 	const song_list = document.getElementById('album-details-songs');
 
-	const songs = await tauri.invoke('fetch_one_to_one', { selectQry: 'song_name', whereQry: 'song_album', query: album });
-	const artist = [...new Set(await tauri.invoke('fetch_one_to_one', { selectQry: 'song_artist', whereQry: 'song_album', query: album }))];
-	const artwork = [...new Set(await tauri.invoke('fetch_one_to_one', { selectQry: 'song_artwork', whereQry: 'song_album', query: album }))];
+	var songs = await tauri.invoke('fetch', { selectQry: 'song_name', tableQry: 'songs', whereQry: 'song_album', item: album });
+	var artist = await tauri.invoke('fetch', { selectQry: 'song_artist', tableQry: 'songs', whereQry: 'song_album', item: album });
+	var artwork = await tauri.invoke('fetch', { selectQry: 'song_artwork', tableQry: 'songs', whereQry: 'song_album', item: album });
+
+	songs = [...new Set(songs[0])];
+	artist = [...new Set(artist[0])];
+	artwork = [...new Set(artwork[0])];
 
 	scroll_view.style.display = 'none';
 	album_details.style.display = 'block';
