@@ -86,13 +86,18 @@ document.addEventListener('click', (e) => {
 	if (artist_sidebar) {
 		fetchArtistAlbums(artist_sidebar.innerText);
 	}
-});
 
-document.addEventListener('click', (e) => {
 	const album_sidebar = e.target.closest("#sidebar-album");
 
 	if (album_sidebar) {
 		showAlbumDetails(album_sidebar.innerText);
+	}
+
+	const playlist_sidebar = e.target.closest('#sidebar-playlist');
+
+	if (playlist_sidebar) {
+		console.log('hello');
+		showPlaylistView();
 	}
 });
 
@@ -100,12 +105,17 @@ async function fetchArtistAlbums(artist) {
 	var albums = await tauri.invoke('fetch', { selectQry: 'song_artwork', tableQry: 'songs', whereQry: 'song_artist', item: artist });
 	albums = [...new Set(albums[0])];
 	const main_view = document.getElementById('main-view');
+	const playlist_view = document.getElementById('playlist-details');
+	const album_details = document.getElementById('album-details');
 
+	playlist_view.style.display = 'none';
+	album_details.style.display = 'none';
 	main_view.innerHTML = '';
 
 	for (const key in albums) {
 		let child = document.createElement('span');
 		child.classList.add('grid-cell');
+		child.setAttribute('id', 'grid-cell');
 		child.style.backgroundImage = `url('${albums[key].trim()}')`;
 		main_view.appendChild(child);
 	}
@@ -142,6 +152,11 @@ async function showAlbumDetails(album) { // hell(p)
 	const artist_name = document.getElementById('album-details-artist');
 	const album_artwork = document.getElementById('album-details-artwork');
 	const song_list = document.getElementById('album-details-songs');
+	const playlist_details = document.getElementById('playlist-details');
+	const main_view = document.getElementById('main-view');
+
+	// remove current artwork
+	main_view.innerHTML = '';
 
 	var songs = await tauri.invoke('fetch', { selectQry: 'song_name', tableQry: 'songs', whereQry: 'song_album', item: album });
 	var artist = await tauri.invoke('fetch', { selectQry: 'song_artist', tableQry: 'songs', whereQry: 'song_album', item: album });
@@ -151,6 +166,7 @@ async function showAlbumDetails(album) { // hell(p)
 	artist = [...new Set(artist[0])];
 	artwork = [...new Set(artwork[0])];
 
+	playlist_details.style.display = 'none';
 	scroll_view.style.display = 'none';
 	album_details.style.display = 'block';
 	album_name.innerText = album;
@@ -186,4 +202,15 @@ async function showAlbumDetails(album) { // hell(p)
 		song_length.innerText = '0:00';
 		song_wrapper.appendChild(song_length);
 	}
+}
+
+async function showPlaylistView() {
+	const playlist_view = document.getElementById('playlist-details');
+	const album_details = document.getElementById('album-details');
+	const main_view = document.getElementById('main-view');
+
+	main_view.innerHTML = '';
+
+	album_details.style.display = 'none';
+	playlist_view.style.display = 'block';
 }
