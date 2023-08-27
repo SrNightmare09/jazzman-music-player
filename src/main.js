@@ -1,11 +1,14 @@
 const tauri = window.__TAURI__;
 
+const home_view = document.getElementById('home-view');
+const artist_view = document.getElementById('artist-view');
+const playlist_view = document.getElementById('playlist_view');
+
 (function () {
 	initialize();
 })();
 
 async function initialize() {
-
 	await tauri.invoke('initialize', {});
 }
 
@@ -24,10 +27,9 @@ async function scan_music() {
 }
 
 async function getLibraryArtwork() {
-	const home_view = document.getElementById('home-view');
-	const artist_view = document.getElementById('artist-view');
 
 	// remove current artwork
+	home_view.innerHTML = '';
 	artist_view.style.display = 'none';
 	home_view.style.display = 'grid';
 
@@ -85,14 +87,9 @@ async function fetchArtistAlbums(artist) {
 	var albums = await tauri.invoke('fetch', { selectQry: 'song_artwork', tableQry: 'songs', whereQry: 'song_artist', item: artist });
 	albums = [...new Set(albums[0])];
 
-	console.log(artist);
-
-	const home_view = document.getElementById('home-view');
-	const artist_view = document.getElementById('artist-view');
-
-	artist_view.style.display = 'grid';
-	home_view.style.display = 'none';
 	artist_view.innerHTML = '';
+	home_view.style.display = 'none';
+	artist_view.style.display = 'grid';
 
 	for (const key in albums) {
 		let child = document.createElement('span');
@@ -125,8 +122,4 @@ document.getElementById('create-playlist-button').onclick = () => {
 	document.getElementById('playlist-name-dialog-box').style.display = 'none';
 }
 
-// async function playlistView(playlistName) {
 
-// 	const
-
-// }
