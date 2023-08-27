@@ -17,6 +17,8 @@
 
             <div class="lib-nav">
 
+                <div class="sidebar-item clickable parent-option" onclick="navigateHome()">Home</div>
+
                 <div class="sidebar-item clickable parent-option" onclick="toggleSubOptions('artists')">Artists</div>
                 <div class="sub-options" id="artistsOptions"></div>
 
@@ -32,15 +34,15 @@
         </aside>
 
         <main class="main-view-wrapper" style="background-color: black;">
+
             <div class="main-view-scroll" id="main-view-scroll">
-                <div class="main-view" id="main-view"></div>
-            </div>
 
-            <div class="details-view" id="details-view">
+                <div class="home-view" id="home-view"></div>
 
-                
+                <div class="artist-view" id="artist-view"></div>
 
             </div>
+
         </main>
 
         <footer class="footer">

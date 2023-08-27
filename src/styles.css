@@ -185,7 +185,7 @@ p {
     overflow-x: hidden;
 }
 
-.main-view {
+.home-view, .artist-view {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(10, 1fr);

@@ -24,10 +24,12 @@ async function scan_music() {
 }
 
 async function getLibraryArtwork() {
-	const main_view = document.getElementById('main-view');
+	const home_view = document.getElementById('home-view');
+	const artist_view = document.getElementById('artist-view');
 
 	// remove current artwork
-	main_view.innerHTML = '';
+	artist_view.style.display = 'none';
+	home_view.style.display = 'grid';
 
 	let artwork = await tauri.invoke('fetch', { selectQry: 'song_artwork', tableQry: 'songs', whereQry: 'song_artist', item: '%' });
 
@@ -37,11 +39,10 @@ async function getLibraryArtwork() {
 		let child = document.createElement('span');
 		child.classList.add('grid-cell');
 		child.style.backgroundImage = `url('${dir}')`; //! TODO: find some way to enable directories with spaces
-		main_view.appendChild(child);
+		home_view.appendChild(child);
 	});
 
 	getArtists();
-	getAlbums();
 }
 
 async function getArtists() {
@@ -62,44 +63,42 @@ async function getArtists() {
 	});
 }
 
-async function getAlbums() {
-	const album_list = document.getElementById('albumsOptions');
-
-	album_list.innerHTML = '';
-
-	var album = await tauri.invoke('fetch', { selectQry: 'song_album', tableQry: 'songs', whereQry: 'song_artist', item: '%' });
-
-	album = [...new Set(album[0])];
-
-	album.forEach((album_artist) => {
-		let child = document.createElement('div');
-		child.classList.add('sidebar-item');
-		child.setAttribute("id", "sidebar-album");
-		child.innerText = album_artist;
-		album_list.appendChild(child);
-	});
-}
-
 document.addEventListener('click', (e) => {
 	const artist_sidebar = e.target.closest('#sidebar-artist');
 
 	if (artist_sidebar) {
 		fetchArtistAlbums(artist_sidebar.innerText);
 	}
+
+	const playlist = e.target.closest('#sidebar-playlist');
+
+	if (playlist) {
+		playlistView(playlist.innerText);
+	}
 });
+
+async function navigateHome() {
+	getLibraryArtwork();
+}
 
 async function fetchArtistAlbums(artist) {
 	var albums = await tauri.invoke('fetch', { selectQry: 'song_artwork', tableQry: 'songs', whereQry: 'song_artist', item: artist });
 	albums = [...new Set(albums[0])];
-	const main_view = document.getElementById('main-view');
 
-	main_view.innerHTML = '';
+	console.log(artist);
+
+	const home_view = document.getElementById('home-view');
+	const artist_view = document.getElementById('artist-view');
+
+	artist_view.style.display = 'grid';
+	home_view.style.display = 'none';
+	artist_view.innerHTML = '';
 
 	for (const key in albums) {
 		let child = document.createElement('span');
 		child.classList.add('grid-cell');
 		child.style.backgroundImage = `url('${albums[key].trim()}')`;
-		main_view.appendChild(child);
+		artist_view.appendChild(child);
 	}
 }
 
@@ -126,3 +125,8 @@ document.getElementById('create-playlist-button').onclick = () => {
 	document.getElementById('playlist-name-dialog-box').style.display = 'none';
 }
 
+// async function playlistView(playlistName) {
+
+// 	const
+
+// }
