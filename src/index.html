@@ -17,13 +17,11 @@
 
             <div class="lib-nav">
 
-                <div class="sidebar-item clickable parent-option" onclick="toggleSubOptions('albums')">Albums</div>
-                <div class="sub-options" id="albumsOptions"></div>
-
                 <div class="sidebar-item clickable parent-option" onclick="toggleSubOptions('artists')">Artists</div>
                 <div class="sub-options" id="artistsOptions"></div>
 
-                <div class="sidebar-item clickable parent-option" onclick="toggleSubOptions('playlists')">Playlists</div>
+                <div class="sidebar-item clickable parent-option" onclick="toggleSubOptions('playlists')">Playlists
+                </div>
                 <div class="sub-options" id="playlistsOptions"></div>
 
             </div>
@@ -38,15 +36,30 @@
                 <div class="main-view" id="main-view"></div>
             </div>
 
-            <div class="album-details" id="album-details" style="display: none;">
-                <div id="album-details-header">
-                    <div id="album-details-artwork"></div>
-                    <div id="album-details-header-text">
-                        <div id="album-details-name"></div>
-                        <div id="album-details-artist">Kanye West</div>
+            <div class="details-view" id="details-view">
+
+                <div class="album-details" id="album-details" style="display: none;">
+                    <div id="album-details-header">
+                        <div id="album-details-artwork"></div>
+                        <div id="album-details-header-text">
+                            <div id="album-details-name"></div>
+                            <div id="album-details-artist"></div>
+                        </div>
                     </div>
+                    <div id="album-details-songs"></div>
                 </div>
-                <div id="album-details-songs"></div>
+
+                <div class="playlist-details" id="playlist-details" style="display: none;">
+                    <div id="playlist-details-header">
+                        <div id="playlist-details-artwork"></div>
+                        <div id="playlist-details-header-text">
+                            <div id="playlist-details-name"></div>
+                            <div id="playlist-details-artist"></div>
+                        </div>
+                    </div>
+                    <div id="playlist-details-songs"></div>
+                </div>
+
             </div>
         </main>
 
@@ -92,4 +105,5 @@
         </dialog>
     </div>
 </body>
+
 </html>

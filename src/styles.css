@@ -303,3 +303,64 @@ p {
     justify-content: center;
     margin-left: auto;
 }
+
+.playlist-details {
+    background-color: rgb(51, 3, 148);
+    color: black;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+#playlist-details-header {
+    background-color: teal;
+    height: 150px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+#playlist-details-artwork {
+    height: 100%;
+    aspect-ratio: 1;
+    background-size: cover;
+}
+
+#playlist-details-header-text {
+    flex-grow: 1;
+    background-color:cadetblue;
+    display: flex;
+    flex-direction: column;
+}
+
+#playlist-details-name {
+    height: 70%;
+    align-items: center;
+    font-size: 80px;
+    padding-left: 10px;
+}
+
+#playlist-details-artist {
+    flex-grow: 1;
+    padding-left: 10px;
+    align-items: center;
+    padding-top: 10px;
+    font-size: 20px;
+}
+
+#playlist-details-songs {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.playlist-details-playlist-song {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+}
+
