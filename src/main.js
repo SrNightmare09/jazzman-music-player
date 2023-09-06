@@ -79,6 +79,7 @@ document.addEventListener('click', (e) => {
 	}
 });
 
+
 async function navigateHome() {
 	getLibraryArtwork();
 }
@@ -94,6 +95,7 @@ async function fetchArtistAlbums(artist) {
 	for (const key in albums) {
 		let child = document.createElement('span');
 		child.classList.add('grid-cell');
+		child.setAttribute('id', 'grid-cell');
 		child.style.backgroundImage = `url('${albums[key].trim()}')`;
 		artist_view.appendChild(child);
 	}
@@ -126,6 +128,17 @@ async function playlistView(playlist_name) {
 	home_view.style.display = 'none';
 	artist_view.style.display = 'none';
 	playlist_view.style.display = 'initial';
-
+    
 	document.getElementById('playlist-name').innerText = playlist_name;
+}
+
+async function showPlaylistView() {
+	const playlist_view = document.getElementById('playlist-details');
+	const album_details = document.getElementById('album-details');
+	const main_view = document.getElementById('main-view');
+
+	main_view.innerHTML = '';
+
+	album_details.style.display = 'none';
+	playlist_view.style.display = 'block';
 }
