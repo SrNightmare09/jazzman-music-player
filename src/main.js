@@ -20,7 +20,7 @@ function toggleSubOptions(id) {
 	}
 }
 
-async function scan_music() {
+async function scanMusic() {
 	tauri.invoke('scan_music', {});
 	getLibraryArtwork();
 }
@@ -95,7 +95,7 @@ async function fetchArtistAlbums(artist) {
 	}
 }
 
-async function create_playlist_button() {
+async function createPlaylistButton() {
 	document.getElementById('playlist-name-box').value = '';
 	document.getElementById('playlist-name-dialog-box').style.display = 'block';
 }
