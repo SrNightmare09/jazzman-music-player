@@ -274,3 +274,9 @@ p {
     flex-grow: 1;
     padding-left: 10px;
 }
+
+.playlist-menu-list {
+    width: 100%;
+    height: auto;
+    background-color: yellow;
+}
