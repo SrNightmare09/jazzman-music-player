@@ -1,7 +1,7 @@
 const tauri = window.__TAURI__;
-const home_view = document.getElementById('home-view');
-const artist_view = document.getElementById('artist-view');
-const playlist_view = document.getElementById('playlist-view');
+const homeView = document.getElementById('home-view');
+const artistView = document.getElementById('artist-view');
+const playlistView = document.getElementById('playlist-view');
 
 (function () {
 	initialize();
@@ -28,9 +28,9 @@ async function scanMusic() {
 async function getLibraryArtwork() {
 
 	// remove current artwork
-	home_view.innerHTML = '';
-	artist_view.style.display = 'none';
-	home_view.style.display = 'grid';
+	homeView.innerHTML = '';
+	artistView.style.display = 'none';
+	homeView.style.display = 'grid';
 
 	let artwork = await tauri.invoke('fetch', { selectQry: 'song_artwork', tableQry: 'songs', whereQry: 'song_artist', item: '%' });
 
@@ -40,16 +40,16 @@ async function getLibraryArtwork() {
 		let child = document.createElement('span');
 		child.classList.add('grid-cell');
 		child.style.backgroundImage = `url('${dir}')`; //! TODO: find some way to enable directories with spaces
-		home_view.appendChild(child);
+		homeView.appendChild(child);
 	});
 
 	getArtists();
 }
 
 async function getArtists() {
-	const artist_list = document.getElementById('artistsOptions');
+	const artistList = document.getElementById('artistsOptions');
 
-	artist_list.innerHTML = '';
+	artistList.innerHTML = '';
 
 	var artist = await tauri.invoke('fetch', { selectQry: 'song_artist', tableQry: 'songs', whereQry: 'song_artist', item: '%' });
 
@@ -60,21 +60,21 @@ async function getArtists() {
 		child.classList.add('sidebar-item');
 		child.setAttribute("id", "sidebar-artist");
 		child.innerText = song_artist;
-		artist_list.appendChild(child);
+		artistList.appendChild(child);
 	});
 }
 
 document.addEventListener('click', (e) => {
-	const artist_sidebar = e.target.closest('#sidebar-artist');
+	const artistSidebar = e.target.closest('#sidebar-artist');
 
-	if (artist_sidebar) {
-		fetchArtistAlbums(artist_sidebar.innerText);
+	if (artistSidebar) {
+		fetchArtistAlbums(artistSidebar.innerText);
 	}
 
 	const playlist = e.target.closest('#sidebar-playlist');
 
 	if (playlist) {
-		playlistView(playlist.innerText);
+		showPlaylistView(playlist.innerText);
 	}
 });
 
@@ -82,16 +82,16 @@ async function fetchArtistAlbums(artist) {
 	var albums = await tauri.invoke('fetch', { selectQry: 'song_artwork', tableQry: 'songs', whereQry: 'song_artist', item: artist });
 	albums = [...new Set(albums[0])];
 
-	artist_view.innerHTML = '';
-	home_view.style.display = 'none';
-	artist_view.style.display = 'grid';
+	artistView.innerHTML = '';
+	homeView.style.display = 'none';
+	artistView.style.display = 'grid';
 
 	for (const key in albums) {
 		let child = document.createElement('span');
 		child.classList.add('grid-cell');
 		child.setAttribute('id', 'grid-cell');
 		child.style.backgroundImage = `url('${albums[key].trim()}')`;
-		artist_view.appendChild(child);
+		artistView.appendChild(child);
 	}
 }
 
@@ -101,10 +101,10 @@ async function createPlaylistButton() {
 }
 
 document.getElementById('create-playlist-button').onclick = () => {
-	const playlist_name = document.getElementById('playlist-name-box').value;
-	const playlist_sidebar = document.getElementById('playlistsOptions');
+	const playlistName = document.getElementById('playlist-name-box').value;
+	const playlistSidebar = document.getElementById('playlistsOptions');
 
-	if (playlist_name == '') {
+	if (playlistName == '') {
 		document.getElementById('playlist-name-dialog-box').style.display = 'none';
 		return;
 	}
@@ -112,27 +112,16 @@ document.getElementById('create-playlist-button').onclick = () => {
 	let child = document.createElement('div');
 	child.classList.add('sidebar-item');
 	child.setAttribute('id', 'sidebar-playlist');
-	child.innerText = playlist_name;
-	playlist_sidebar.appendChild(child);
+	child.innerText = playlistName;
+	playlistSidebar.appendChild(child);
 
 	document.getElementById('playlist-name-dialog-box').style.display = 'none';
 }
 
-async function playlistView(playlist_name) {
-	home_view.style.display = 'none';
-	artist_view.style.display = 'none';
-	playlist_view.style.display = 'initial';
+async function showPlaylistView(playlistName) {
+	homeView.style.display = 'none';
+	artistView.style.display = 'none';
+	playlistView.style.display = 'initial';
 
-	document.getElementById('playlist-name').innerText = playlist_name;
-}
-
-async function showPlaylistView() {
-	const playlist_view = document.getElementById('playlist-details');
-	const album_details = document.getElementById('album-details');
-	const main_view = document.getElementById('main-view');
-
-	main_view.innerHTML = '';
-
-	album_details.style.display = 'none';
-	playlist_view.style.display = 'block';
+	document.getElementById('playlist-name').innerText = playlistName;
 }
