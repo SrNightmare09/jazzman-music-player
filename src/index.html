@@ -17,13 +17,13 @@
 
             <div class="lib-nav">
 
-                <div class="sidebar-item clickable parent-option" onclick="toggleSubOptions('albums')">Albums</div>
-                <div class="sub-options" id="albumsOptions"></div>
+                <div class="sidebar-item clickable parent-option" onclick="navigateHome()">Home</div>
 
                 <div class="sidebar-item clickable parent-option" onclick="toggleSubOptions('artists')">Artists</div>
                 <div class="sub-options" id="artistsOptions"></div>
 
-                <div class="sidebar-item clickable parent-option" onclick="toggleSubOptions('playlists')">Playlists</div>
+                <div class="sidebar-item clickable parent-option" onclick="toggleSubOptions('playlists')">Playlists
+                </div>
                 <div class="sub-options" id="playlistsOptions"></div>
 
             </div>
@@ -36,31 +36,24 @@
         <main class="main-view-wrapper" style="background-color: black;">
 
             <div class="main-view-scroll" id="main-view-scroll">
-                <div class="main-view" id="main-view"></div>
-            </div>
+                <div class="home-view" id="home-view"></div>
 
-            <div class="album-details" id="album-details" style="display: none;">
-                <div id="album-details-header">
-                    <div id="album-details-artwork"></div>
-                    <div id="album-details-header-text">
-                        <div id="album-details-name"></div>
-                        <div id="album-details-artist">boiboi</div>
+                <div class="artist-view" id="artist-view"></div>
+
+                <div class="playlist-view" id="playlist-view" style="display: none;">
+                    <div class="playlist-menu-header" id="playlist-menu-header">
+                        <span class="playlist-artwork"></span>
+                        <span class="playlist-metadata">
+                            <h1 id="playlist-name"></h1>
+                            <h3>Playlist description</h3>
+                            <h3>User name</h3>
+                        </span>
                     </div>
+                    <div class="playlist-menu-list" id="playlist-menu-list"></div>
                 </div>
-                <div id="album-details-songs"></div>
+              
             </div>
-
-            <div class="playlist-details" id="playlist-details" style="display: none;">
-                <div id="playlist-details-header">
-                    <div id="playlist-details-artwork"></div>
-                    <div id="playlist-details-header-text">
-                        <div id="playlist-details-name"></div>
-                        <div id="playlist-details-artist">boiboi</div>
-                    </div>
-                </div>
-                <div id="playlist-details-songs"></div>
-            </div>
-
+          
         </main>
 
         <footer class="footer">
@@ -105,4 +98,5 @@
         </dialog>
     </div>
 </body>
+
 </html>
