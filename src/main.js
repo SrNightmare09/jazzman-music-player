@@ -2,7 +2,7 @@ const tauri = window.__TAURI__;
 
 const home_view = document.getElementById('home-view');
 const artist_view = document.getElementById('artist-view');
-const playlist_view = document.getElementById('playlist_view');
+const playlist_view = document.getElementById('playlist-view');
 
 (function () {
 	initialize();
@@ -122,4 +122,10 @@ document.getElementById('create-playlist-button').onclick = () => {
 	document.getElementById('playlist-name-dialog-box').style.display = 'none';
 }
 
+async function playlistView(playlist_name) {
+	home_view.style.display = 'none';
+	artist_view.style.display = 'none';
+	playlist_view.style.display = 'initial';
 
+	document.getElementById('playlist-name').innerText = playlist_name;
+}
