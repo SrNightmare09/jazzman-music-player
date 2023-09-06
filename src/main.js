@@ -1,5 +1,4 @@
 const tauri = window.__TAURI__;
-
 const home_view = document.getElementById('home-view');
 const artist_view = document.getElementById('artist-view');
 const playlist_view = document.getElementById('playlist-view');
@@ -79,11 +78,6 @@ document.addEventListener('click', (e) => {
 	}
 });
 
-
-async function navigateHome() {
-	getLibraryArtwork();
-}
-
 async function fetchArtistAlbums(artist) {
 	var albums = await tauri.invoke('fetch', { selectQry: 'song_artwork', tableQry: 'songs', whereQry: 'song_artist', item: artist });
 	albums = [...new Set(albums[0])];
@@ -128,7 +122,7 @@ async function playlistView(playlist_name) {
 	home_view.style.display = 'none';
 	artist_view.style.display = 'none';
 	playlist_view.style.display = 'initial';
-    
+
 	document.getElementById('playlist-name').innerText = playlist_name;
 }
 

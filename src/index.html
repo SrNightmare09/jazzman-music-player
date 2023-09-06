@@ -17,7 +17,7 @@
 
             <div class="lib-nav">
 
-                <div class="sidebar-item clickable parent-option" onclick="navigateHome()">Home</div>
+                <div class="sidebar-item clickable parent-option" onclick="getLibraryArtwork()">Home</div>
 
                 <div class="sidebar-item clickable parent-option" onclick="toggleSubOptions('artists')">Artists</div>
                 <div class="sub-options" id="artistsOptions"></div>
@@ -91,7 +91,7 @@
                 </div>
             </div>
         </footer>
-        <dialog class="playlist-name-dialog-box" open="false" style="display: none;">
+        <dialog class="playlist-name-dialog-box" id="playlist-name-dialog-box" open="false" style="display: none;">
             <h3>Enter playlist name</h3>
             <input type="text" id="playlist-name-box">
             <button id="create-playlist-button">Create</button>
